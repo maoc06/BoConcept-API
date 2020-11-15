@@ -5,7 +5,8 @@ function makeGetProducts({ listProducts }) {
         };
 
         try {
-            const products = await listProducts();
+            // const products = await listProducts();
+            const products = await listProducts({ proId: httpRequest.params.id });
             return {
                 headers,
                 statusCode: 200,
