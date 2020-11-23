@@ -16,8 +16,8 @@ export default function makeProductDb({ makeDb }) {
 
     async function findById(proId) {
         const db = await makeDb();
-        const queryStatement = `SELECT * FROM product WHERE pro_id=${proId}`;
-        const result = (await db.query(queryStatement)).rows[0];
+        const queryStatement = `SELECT * FROM product WHERE pro_id = $1`;
+        const result = (await db.query(queryStatement, [proId])).rows[0];
         return result;
     }
 
@@ -45,8 +45,8 @@ export default function makeProductDb({ makeDb }) {
 
     async function deleteById(proId) {
         const db = await makeDb();
-        const queryStatement = `DELETE FROM product WHERE pro_id=${proId}`;
-        const result = (await db.query(queryStatement)).rows[0];
+        const queryStatement = `DELETE FROM product WHERE pro_id = $1`;
+        const result = (await db.query(queryStatement, [proId])).rows[0];
         return result;
     }
 }

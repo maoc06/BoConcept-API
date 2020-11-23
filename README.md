@@ -17,14 +17,16 @@ of the business logic with the framework and the databases.
 
 ![alt text](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg "Clean Architecture - Uncle Bob")
 
-## Routes
+## Endpoints
 
-### GET
+To review the documentation of routes and endpoints, execute the following commands:
 
-- /api/product
+`npm run swagger-autogen`
 
-> return a list of products
+> :bulb: This will generate a json configuration file auto generated with the help of [Swagger](https://swagger.io/).
 
-- /api/product/:id
+Then run the server with
 
-> returns the product that matches the parameter id
+`npm start`
+
+and go to <http://localhost:3000/doc> to see the documentation.

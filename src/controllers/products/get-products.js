@@ -1,5 +1,6 @@
 export default function makeGetProducts({ listProducts }) {
     return async function getProducts(httpRequest) {
+
         const headers = {
             'Content-Type': 'application/json'
         };

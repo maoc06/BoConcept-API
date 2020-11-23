@@ -1,6 +1,7 @@
 export default function makeListProducts({ productsDb }) {
 
     return async function listProducts({ proId } = {}) {
+
         if (proId) {
             const existing = await productsDb.findById(proId);
 
