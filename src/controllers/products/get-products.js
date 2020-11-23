@@ -1,16 +1,18 @@
-function makeGetProducts({ listProducts }) {
+export default function makeGetProducts({ listProducts }) {
     return async function getProducts(httpRequest) {
         const headers = {
             'Content-Type': 'application/json'
         };
 
         try {
-            // const products = await listProducts();
             const products = await listProducts({ proId: httpRequest.params.id });
             return {
                 headers,
                 statusCode: 200,
-                body: products
+                body: {
+                    message: "list products",
+                    data: products
+                }
             }
         } catch (e) {
             console.log(e);
@@ -24,5 +26,3 @@ function makeGetProducts({ listProducts }) {
         }
     }
 }
-
-module.exports = makeGetProducts;

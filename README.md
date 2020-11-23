@@ -21,6 +21,10 @@ of the business logic with the framework and the databases.
 
 ### GET
 
-/api/v1/products
+- /api/product
 
 > return a list of products
+
+- /api/product/:id
+
+> returns the product that matches the parameter id

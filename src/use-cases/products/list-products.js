@@ -1,7 +1,13 @@
-function makeListProducts({ productsDb }) {
+export default function makeListProducts({ productsDb }) {
 
     return async function listProducts({ proId } = {}) {
         if (proId) {
+            const existing = await productsDb.findById(proId);
+
+            if (!existing) {
+                throw new RangeError('Product not found.');
+            }
+
             const product = await productsDb.findById(proId);
             return product;
         }
@@ -11,4 +17,4 @@ function makeListProducts({ productsDb }) {
 
 }
 
-module.exports = makeListProducts;
+// module.exports = makeListProducts;

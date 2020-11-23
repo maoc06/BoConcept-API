@@ -1,16 +1,30 @@
 {
+    "main": "index.js",
     "name": "boconcept-api",
     "version": "1.0.0",
     "description": "RESTful API for BoConcept Furniture",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "engines": {
+        "node": "12.18.2"
     },
-    "author": "maoc",
+    "scripts": {
+        "start": "node .",
+        "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src"
+    },
+    "author": "Miguel Orrego",
     "license": "ISC",
     "dependencies": {
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
-        "pg": "^8.4.2"
+        "morgan": "^1.10.0",
+        "pg": "^8.4.2",
+        "sequelize": "^6.3.5"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.12.7",
+        "@babel/core": "^7.12.7",
+        "@babel/polyfill": "^7.12.1",
+        "@babel/preset-env": "^7.12.7",
+        "@babel/register": "^7.12.1",
+        "nodemon": "^2.0.6"
     }
 }

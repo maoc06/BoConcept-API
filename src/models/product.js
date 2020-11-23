@@ -1,4 +1,4 @@
-function buildMakeProduct({}) {
+export default function buildMakeProduct({}) {
     return function makeProduct({
         pro_id = null,
         name,
@@ -18,5 +18,3 @@ function buildMakeProduct({}) {
         })
     }
 }
-
-module.exports = buildMakeProduct;

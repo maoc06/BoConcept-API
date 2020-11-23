@@ -1,5 +1,5 @@
-const buildMakeProduct = require('./product');
+import buildMakeProduct from './product';
 
 const makeProduct = buildMakeProduct({});
 
-module.exports = makeProduct;
+export default makeProduct;

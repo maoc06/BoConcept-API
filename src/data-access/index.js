@@ -1,8 +1,8 @@
-const Pool = require('pg').Pool;
-const makeProductDb = require('./products-db');
-const { config } = require('../../config');
+import Pool from 'pg';
+import makeProductDb from './products-db';
+import { config } from '../../config';
 
-const client = new Pool({
+const client = new Pool.Pool({
     user: config.dbUser,
     host: config.dbHost,
     database: config.dbName,
@@ -10,11 +10,9 @@ const client = new Pool({
     port: config.dbPort,
 });
 
-function makeDb() {
+export function makeDb() {
     return client;
 }
 
 const productsDb = makeProductDb({ makeDb });
-
-module.exports = { makeDb }
-module.exports = productsDb;
+export default productsDb;
