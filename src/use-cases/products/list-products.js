@@ -1,7 +1,5 @@
 export default function makeListProducts({ productsDb }) {
-
     return async function listProducts({ proId } = {}) {
-
         if (proId) {
             const existing = await productsDb.findById(proId);
 
@@ -14,8 +12,7 @@ export default function makeListProducts({ productsDb }) {
         }
         const products = await productsDb.findAll();
         return products;
-    }
-
+    };
 }
 
 // module.exports = makeListProducts;

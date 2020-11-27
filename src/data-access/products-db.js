@@ -1,12 +1,4 @@
 export default function makeProductDb({ makeDb }) {
-    return Object.freeze({
-        findAll,
-        findById,
-        insert,
-        update,
-        deleteById
-    });
-
     async function findAll() {
         const db = await makeDb();
         const queryStatement = 'SELECT * FROM product';
@@ -21,16 +13,19 @@ export default function makeProductDb({ makeDb }) {
         return result;
     }
 
-    async function insert({...product }) {
+    async function insert({ ...product }) {
         const db = await makeDb();
         const queryStatement = `INSERT INTO
-                                product(name, description, collection, price) 
-                                VALUES($1, $2, $3, $4) RETURNING *`;
-        const result = await db.query(queryStatement, Object.values({...product }));
+                                product(pro_id, name, description, collection, price) 
+                                VALUES($1, $2, $3, $4, $5) RETURNING *`;
+        const result = await db.query(
+            queryStatement,
+            Object.values({ ...product })
+        );
         return result.rows[0];
     }
 
-    async function update({...product }) {
+    async function update({ ...product }) {
         const db = await makeDb();
         const queryStatement = `UPDATE product
                                 SET name = $2,
@@ -39,7 +34,10 @@ export default function makeProductDb({ makeDb }) {
                                     price = $5
                                 WHERE pro_id = $1 
                                 RETURNING *`;
-        const result = await db.query(queryStatement, Object.values({...product }));
+        const result = await db.query(
+            queryStatement,
+            Object.values({ ...product })
+        );
         return result.rows[0];
     }
 
@@ -49,4 +47,12 @@ export default function makeProductDb({ makeDb }) {
         const result = (await db.query(queryStatement, [proId])).rows[0];
         return result;
     }
+
+    return Object.freeze({
+        findAll,
+        findById,
+        insert,
+        update,
+        deleteById,
+    });
 }

@@ -3,14 +3,21 @@ import makeProduct from '../../models';
 export default function makeAddProduct({ productsDb }) {
     return async function addProduct(productInfo) {
         const product = makeProduct(productInfo);
-        // TODO -> Deberia verificar que es producto no exista
+
+        // Verificar que el producto no exista
+        const existing = await productsDb.findById(product.getId());
+        if (existing) {
+            throw new Error('Product already exists.');
+        }
+
         return productsDb.insert({
+            pro_id: product.getId(),
             name: product.getName(),
             description: product.getDescription(),
             collection: product.getCollection(),
-            price: product.getPrice()
+            price: product.getPrice(),
         });
-    }
+    };
 }
 
 // module.exports = makeAddProduct;

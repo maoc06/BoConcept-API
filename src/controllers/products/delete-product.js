@@ -1,7 +1,7 @@
 export default function makeDeleteProduct({ removeProduct }) {
     return async function deleteProduct(httpRequest) {
         const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         };
 
         try {
@@ -10,19 +10,19 @@ export default function makeDeleteProduct({ removeProduct }) {
                 headers,
                 statusCode: 200,
                 body: {
-                    message: "remove product success",
-                    data: {}
-                }
-            }
+                    message: 'Product successfully deleted',
+                    data: {},
+                },
+            };
         } catch (e) {
             console.log(e);
             return {
                 headers,
                 statusCode: 400,
                 body: {
-                    error: e.message
-                }
-            }
+                    error: e.message,
+                },
+            };
         }
-    }
+    };
 }

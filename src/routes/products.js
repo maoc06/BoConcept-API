@@ -8,7 +8,6 @@ import {
 import makeCallback from '../express-callback';
 
 function getProductsRoutes() {
-
     const router = express.Router();
     /*
         #swagger.start
@@ -63,7 +62,6 @@ function getProductsRoutes() {
     router.post('/', makeCallback(postProduct));
     // #swagger.end
 
-
     /*
         #swagger.start
        #swagger.path = '/product'
@@ -79,7 +77,6 @@ function getProductsRoutes() {
     */
     router.put('/', makeCallback(putProduct));
     // #swagger.end
-
 
     /*
         #swagger.start
@@ -98,7 +95,6 @@ function getProductsRoutes() {
     router.delete('/:id', makeCallback(deleteProduct));
     // #swagger.end
     return router;
-
 }
 
 export { getProductsRoutes };

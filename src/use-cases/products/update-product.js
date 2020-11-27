@@ -2,8 +2,6 @@ import makeProduct from '../../models';
 
 export default function makeUpdateProduct({ productsDb }) {
     return async function updateProduct(productInfo) {
-
-
         const product = makeProduct(productInfo);
 
         const existing = await productsDb.findById(product.getId());
@@ -17,7 +15,7 @@ export default function makeUpdateProduct({ productsDb }) {
             name: product.getName(),
             description: product.getDescription(),
             collection: product.getCollection(),
-            price: product.getPrice()
+            price: product.getPrice(),
         });
-    }
+    };
 }
