@@ -12,6 +12,10 @@ import {
   addCategory,
   updateCategory,
   removeCategory,
+  listPaymentMethod,
+  addPaymentMethod,
+  updatePaymentMethod,
+  removePaymentMethod,
 } from '../use-cases';
 // AUTH CONTROLLERS
 import makeSignIn from './auth/signin';
@@ -30,6 +34,11 @@ import makeGetCategory from './category/get-category';
 import makePostCategory from './category/post-category';
 import makePutCategory from './category/put-category';
 import makeDeleteCategory from './category/delete-category';
+// PAYMENT METHOD CONTROLLERS
+import makeGetPaymentMethod from './payment-method/get-payment-method';
+import makePostPaymentMethod from './payment-method/post-payment-method';
+import makePutPaymentMethod from './payment-method/put-payment-method';
+import makeDeletePaymentMethod from './payment-method/delete-payment-method';
 // NOT FOUND CONTROLLER
 import notFound from './not-found';
 
@@ -50,6 +59,11 @@ const getCategory = makeGetCategory({ listCategory });
 const postCategory = makePostCategory({ addCategory });
 const putCategory = makePutCategory({ updateCategory });
 const deleteCategory = makeDeleteCategory({ removeCategory });
+// PAYMENT METHOD CONTROLLERS EXEC
+const getPaymentMethod = makeGetPaymentMethod({ listPaymentMethod });
+const postPaymentMethod = makePostPaymentMethod({ addPaymentMethod });
+const putPaymentMethod = makePutPaymentMethod({ updatePaymentMethod });
+const deletePaymentMethod = makeDeletePaymentMethod({ removePaymentMethod });
 
 export {
   signUp,
@@ -65,5 +79,9 @@ export {
   postCategory,
   putCategory,
   deleteCategory,
+  getPaymentMethod,
+  postPaymentMethod,
+  putPaymentMethod,
+  deletePaymentMethod,
   notFound,
 };

@@ -7,159 +7,165 @@ chai.use(chaiHttp);
 
 const url = 'http://localhost:3000/api';
 let token;
-let lastCatId;
+let lastPayId;
 
-describe('Category', () => {
+describe('Payment Method', () => {
   before(async () => {
     const res = await loginWithDefaultUser();
     token = res.body.token;
   });
 
-  describe('/GET category', () => {
-    it('it should GET all categories', (done) => {
+  describe('/GET payment method', () => {
+    it('it should GET all payment methods', (done) => {
       chai
         .request(url)
-        .get('/category')
+        .get('/paymethod')
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('message');
-          res.body.should.have.property('message').eql('List Category');
+          res.body.should.have.property('message').eql('List Payment Method');
           res.body.should.have.property('data');
           done();
         });
     });
 
-    it('it should GET a category by id', (done) => {
+    it('it should GET a payment method by id', (done) => {
       chai
         .request(url)
-        .get('/category/1')
+        .get('/paymethod/3')
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('message');
-          res.body.should.have.property('message').eql('List Category');
+          res.body.should.have.property('message').eql('List Payment Method');
           res.body.should.have.property('data');
           res.body.should.have.property('data').should.be.a('object');
           done();
         });
     });
 
-    it('it should not GET a category because not exists', (done) => {
+    it('it should not GET a payment method because not exists', (done) => {
       chai
         .request(url)
-        .get('/category/9999')
+        .get('/paymethod/9999')
         .set({ Authorization: `Bearer ${token}` })
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          res.body.should.have.property('error').eql('Category not found');
-          done();
-        });
-    });
-  });
-
-  describe('/POST category', () => {
-    it('it should not POST a category without name', (done) => {
-      const category = {};
-      chai
-        .request(url)
-        .post('/category')
-        .set({ Authorization: `Bearer ${token}` })
-        .send(category)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error');
           res.body.should.have
             .property('error')
-            .eql('Category must have a name');
+            .eql('Payment method not found');
+          done();
+        });
+    });
+  });
+
+  describe('/POST payment method', () => {
+    it('it should not POST a payment method without name', (done) => {
+      const paymentMethod = {};
+      chai
+        .request(url)
+        .post('/paymethod')
+        .set({ Authorization: `Bearer ${token}` })
+        .send(paymentMethod)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          res.body.should.have
+            .property('error')
+            .eql('Payment method must have a name');
           done();
         });
     });
 
-    it('it should POST a category', (done) => {
-      const category = {
-        name: 'Test Category',
+    it('it should POST a payment method', (done) => {
+      const paymentMethod = {
+        name: 'Test payment method',
       };
       chai
         .request(url)
-        .post('/category')
+        .post('/paymethod')
         .set({ Authorization: `Bearer ${token}` })
-        .send(category)
+        .send(paymentMethod)
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.should.have.property('message');
           res.body.should.have
             .property('message')
-            .eql('Category successfully added');
+            .eql('Payment method successfully added');
           res.body.should.have.property('data');
           res.body.should.have.property('data').should.be.a('object');
-          lastCatId = res.body.data.cat_id;
+          lastPayId = res.body.data.pay_id;
           done();
         });
     });
   });
 
-  describe('/PUT category', () => {
-    it('it should not UPDATE a category because not exists', (done) => {
-      const category = {
-        cat_id: 9999,
-        name: 'Test category updated',
+  describe('/PUT payment method', () => {
+    it('it should not UPDATE a payment method because not exists', (done) => {
+      const paymentMethod = {
+        pay_id: 9999,
+        name: 'Test payment method updated',
       };
       chai
         .request(url)
-        .put('/category')
+        .put('/paymethod')
         .set({ Authorization: `Bearer ${token}` })
-        .send(category)
+        .send(paymentMethod)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error');
-          res.body.should.have.property('error').eql('Category not found.');
+          res.body.should.have
+            .property('error')
+            .eql('Payment method not found.');
           done();
         });
     });
 
-    it('it should not UPDATE a category whitout Id field', (done) => {
-      const category = {
-        name: 'Test category updated',
+    it('it should not UPDATE a payment method whitout Id field', (done) => {
+      const paymentMethod = {
+        name: 'Test payment method updated',
       };
       chai
         .request(url)
-        .put('/category')
+        .put('/paymethod')
         .set({ Authorization: `Bearer ${token}` })
-        .send(category)
+        .send(paymentMethod)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error');
-          res.body.should.have.property('error').eql('Category not found.');
+          res.body.should.have
+            .property('error')
+            .eql('Payment method not found.');
           done();
         });
     });
 
-    it('it should UPDATE a category', (done) => {
-      const category = {
-        cat_id: lastCatId,
-        name: 'Test category updated',
+    it('it should UPDATE a payment method', (done) => {
+      const paymentMethod = {
+        pay_id: lastPayId,
+        name: 'Test payment method updated',
       };
       chai
         .request(url)
-        .put('/category')
+        .put('/paymethod')
         .set({ Authorization: `Bearer ${token}` })
-        .send(category)
+        .send(paymentMethod)
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.should.have.property('message');
           res.body.should.have
             .property('message')
-            .eql('Category successfully updated');
+            .eql('Payment method successfully updated');
           res.body.should.have.property('data');
           res.body.should.have.property('data').should.be.a('object');
           done();
@@ -167,25 +173,27 @@ describe('Category', () => {
     });
   });
 
-  describe('/DELETE category', () => {
-    it('it should not DELETE a category because not exists', (done) => {
+  describe('/DELETE payment method', () => {
+    it('it should not DELETE a payment method because not exists', (done) => {
       chai
         .request(url)
-        .delete(`/category/${8888}`)
+        .delete(`/paymethod/${8888}`)
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
           res.body.should.have.property('error');
-          res.body.should.have.property('error').eql('Category not found.');
+          res.body.should.have
+            .property('error')
+            .eql('Payment method not found.');
           done();
         });
     });
 
-    it('it should not DELETE a category whitout Id field', (done) => {
+    it('it should not DELETE a payment method whitout Id field', (done) => {
       chai
         .request(url)
-        .delete('/category/')
+        .delete('/paymethod/')
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(404);
@@ -196,10 +204,10 @@ describe('Category', () => {
         });
     });
 
-    it('it should DELETE a category given the id', (done) => {
+    it('it should DELETE a payment method given the id', (done) => {
       chai
         .request(url)
-        .delete(`/category/${lastCatId}`)
+        .delete(`/paymethod/${lastPayId}`)
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);
@@ -207,7 +215,7 @@ describe('Category', () => {
           res.body.should.have.property('message');
           res.body.should.have
             .property('message')
-            .eql('Category successfully deleted');
+            .eql('Payment method successfully deleted');
           done();
         });
     });

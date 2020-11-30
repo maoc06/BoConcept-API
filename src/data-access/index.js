@@ -2,6 +2,7 @@ import Pool from 'pg';
 import makeProductDb from './products-db';
 import makeCustomerDb from './customer-db';
 import makeCategoryDb from './category-db';
+import makePaymentMethodDb from './payment-method-db';
 import { config } from '../../config';
 
 const client = new Pool.Pool({
@@ -19,4 +20,5 @@ export function makeDb() {
 const productsDb = makeProductDb({ makeDb });
 const customerDb = makeCustomerDb({ makeDb });
 const categoryDb = makeCategoryDb({ makeDb });
-export { productsDb, customerDb, categoryDb };
+const paymentMethodDb = makePaymentMethodDb({ makeDb });
+export { productsDb, customerDb, categoryDb, paymentMethodDb };
