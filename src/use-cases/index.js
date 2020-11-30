@@ -21,12 +21,26 @@ import makeListPaymentMethod from './payment-method/list-payment-method';
 import makeAddPaymentMethod from './payment-method/add-payment-method';
 import makeUpdatePaymentMethod from './payment-method/update-payment-method';
 import makeRemovePaymentMethod from './payment-method/remove-payment-method';
+// SHOPPING PRODUCT
+import makeListShoppingProduct from './shopping-product/list-shopping-product';
+import makeListByCartShoppingProduct from './shopping-product/list-shopping-product-by-cart';
+import makeAddShoppingProduct from './shopping-product/add-shopping-product';
+import makeUpdateShoppingProduct from './shopping-product/update-shopping-product';
+import makeRemoveShoppingProduct from './shopping-product/remove-shopping-product';
+// CART
+import makeListCart from './cart/list-cart';
+import makeListCartByEmail from './cart/list-cart-by-email';
+import makeAddCart from './cart/add-cart';
+import makeUpdateCart from './cart/update-cart';
+import makeRemoveCart from './cart/remove-cart';
 // DB ACCESS
 import {
   productsDb,
   customerDb,
   categoryDb,
   paymentMethodDb,
+  shoppingProductDb,
+  cartDb,
 } from '../data-access';
 
 const handleToken = makeHandleToken();
@@ -47,6 +61,22 @@ const listPaymentMethod = makeListPaymentMethod({ paymentMethodDb });
 const addPaymentMethod = makeAddPaymentMethod({ paymentMethodDb });
 const updatePaymentMethod = makeUpdatePaymentMethod({ paymentMethodDb });
 const removePaymentMethod = makeRemovePaymentMethod({ paymentMethodDb });
+const listShoppingProduct = makeListShoppingProduct({ shoppingProductDb });
+const listByCartShoppingProduct = makeListByCartShoppingProduct({
+  shoppingProductDb,
+});
+const addShoppingProduct = makeAddShoppingProduct({
+  shoppingProductDb,
+  productsDb,
+  cartDb,
+});
+const updateShoppingProduct = makeUpdateShoppingProduct({ shoppingProductDb });
+const removeShoppingProduct = makeRemoveShoppingProduct({ shoppingProductDb });
+const listCart = makeListCart({ cartDb });
+const listCartByEmail = makeListCartByEmail({ cartDb, customerDb });
+const addCart = makeAddCart({ cartDb, customerDb });
+const updateCart = makeUpdateCart({ cartDb, paymentMethodDb });
+const removeCart = makeRemoveCart({ cartDb });
 
 export {
   authCredentials,
@@ -66,4 +96,14 @@ export {
   addPaymentMethod,
   updatePaymentMethod,
   removePaymentMethod,
+  listShoppingProduct,
+  listByCartShoppingProduct,
+  addShoppingProduct,
+  updateShoppingProduct,
+  removeShoppingProduct,
+  listCart,
+  listCartByEmail,
+  addCart,
+  updateCart,
+  removeCart,
 };

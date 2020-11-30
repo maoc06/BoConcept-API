@@ -16,6 +16,16 @@ import {
   addPaymentMethod,
   updatePaymentMethod,
   removePaymentMethod,
+  listShoppingProduct,
+  listByCartShoppingProduct,
+  addShoppingProduct,
+  updateShoppingProduct,
+  removeShoppingProduct,
+  listCart,
+  listCartByEmail,
+  addCart,
+  updateCart,
+  removeCart,
 } from '../use-cases';
 // AUTH CONTROLLERS
 import makeSignIn from './auth/signin';
@@ -39,6 +49,18 @@ import makeGetPaymentMethod from './payment-method/get-payment-method';
 import makePostPaymentMethod from './payment-method/post-payment-method';
 import makePutPaymentMethod from './payment-method/put-payment-method';
 import makeDeletePaymentMethod from './payment-method/delete-payment-method';
+// SHOPPING PRODUCT CONTROLLERS
+import makeGetShoppingProduct from './shopping-product/get-shopping-product';
+import makeGetShoppingProductByCart from './shopping-product/get-shopping-product-by-cart';
+import makePostShoppingProduct from './shopping-product/post-shopping-product';
+import makePutShoppingProduct from './shopping-product/put-shopping-product';
+import makeDeleteShoppingProduct from './shopping-product/delete-shopping-product';
+// CART CONTROLLERS
+import makeGetCart from './cart/get-cart';
+import makeGetCartByEmail from './cart/get-cart-by-email';
+import makePostCart from './cart/post-cart';
+import makePutCart from './cart/put-cart';
+import makeDeleteCart from './cart/delete-cart';
 // NOT FOUND CONTROLLER
 import notFound from './not-found';
 
@@ -64,6 +86,22 @@ const getPaymentMethod = makeGetPaymentMethod({ listPaymentMethod });
 const postPaymentMethod = makePostPaymentMethod({ addPaymentMethod });
 const putPaymentMethod = makePutPaymentMethod({ updatePaymentMethod });
 const deletePaymentMethod = makeDeletePaymentMethod({ removePaymentMethod });
+// SHOPPING PRODUCT CONTROLLERS EXEC
+const getShoppingProduct = makeGetShoppingProduct({ listShoppingProduct });
+const getShoppingProductByCart = makeGetShoppingProductByCart({
+  listByCartShoppingProduct,
+});
+const postShoppingProduct = makePostShoppingProduct({ addShoppingProduct });
+const putShoppingProduct = makePutShoppingProduct({ updateShoppingProduct });
+const deleteShoppingProduct = makeDeleteShoppingProduct({
+  removeShoppingProduct,
+});
+// CART CONTROLLERS EXEC
+const getCart = makeGetCart({ listCart });
+const getCartByEmail = makeGetCartByEmail({ listCartByEmail });
+const postCart = makePostCart({ addCart });
+const putCart = makePutCart({ updateCart });
+const deleteCart = makeDeleteCart({ removeCart });
 
 export {
   signUp,
@@ -83,5 +121,15 @@ export {
   postPaymentMethod,
   putPaymentMethod,
   deletePaymentMethod,
+  getShoppingProduct,
+  getShoppingProductByCart,
+  postShoppingProduct,
+  putShoppingProduct,
+  deleteShoppingProduct,
+  getCart,
+  getCartByEmail,
+  postCart,
+  putCart,
+  deleteCart,
   notFound,
 };

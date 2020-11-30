@@ -14,5 +14,3 @@ export default function makeListProducts({ productsDb }) {
     return products;
   };
 }
-
-// module.exports = makeListProducts;
