@@ -1,15 +1,15 @@
 import express from 'express';
 import {
-    getProducts,
-    postProduct,
-    putProduct,
-    deleteProduct,
+  getProducts,
+  postProduct,
+  putProduct,
+  deleteProduct,
 } from '../controllers';
 import makeCallback from '../express-callback';
 
 function getProductsRoutes() {
-    const router = express.Router();
-    /*
+  const router = express.Router();
+  /*
         #swagger.start
        #swagger.path = '/product'
        #swagger.method = 'get'
@@ -21,10 +21,10 @@ function getProductsRoutes() {
                description: 'Productos listados.' 
         }
     */
-    router.get('/', makeCallback(getProducts));
-    // #swagger.end
+  router.get('/', makeCallback(getProducts));
+  // #swagger.end
 
-    /*
+  /*
         #swagger.start
        #swagger.path = '/product/{id}'
        #swagger.method = 'get'
@@ -37,10 +37,10 @@ function getProductsRoutes() {
                description: 'Producto encontrado.' 
         }
     */
-    router.get('/:id', makeCallback(getProducts));
-    // #swagger.end
+  router.get('/:id', makeCallback(getProducts));
+  // #swagger.end
 
-    /*
+  /*
         #swagger.start
        #swagger.path = '/product'
        #swagger.method = 'post'
@@ -59,26 +59,25 @@ function getProductsRoutes() {
                description: 'Producto Guardado.' 
         }
     */
-    router.post('/', makeCallback(postProduct));
-    // #swagger.end
+  router.post('/', makeCallback(postProduct));
+  // #swagger.end
 
-    /*
+  /*
         #swagger.start
        #swagger.path = '/product'
        #swagger.method = 'put'
        #swagger.produces = ["application/json"]
        #swagger.description = 'Endpoint para actualizar un producto'
-       #swagger.parameters['id'] = { description: 'ID del producto.' }
        #swagger.tags = ['Product']
        #swagger.responses[200] = { 
                schema: { $ref: "#/definitions/Product" },
                description: 'Producto Actualizado.' 
         }
     */
-    router.put('/', makeCallback(putProduct));
-    // #swagger.end
+  router.put('/', makeCallback(putProduct));
+  // #swagger.end
 
-    /*
+  /*
         #swagger.start
        #swagger.path = '/product/{id}'
        #swagger.method = 'delete'
@@ -92,9 +91,9 @@ function getProductsRoutes() {
         }
         #swagger.responses[404]
     */
-    router.delete('/:id', makeCallback(deleteProduct));
-    // #swagger.end
-    return router;
+  router.delete('/:id', makeCallback(deleteProduct));
+  // #swagger.end
+  return router;
 }
 
 export { getProductsRoutes };

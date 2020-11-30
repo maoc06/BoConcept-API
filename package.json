@@ -11,19 +11,22 @@
     "scripts": {
         "start": "node .",
         "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src",
-        "test": "mocha --timeout 15000",
+        "test": "mocha test/index.test.js --timeout 15000",
         "lint": "eslint ./",
         "lint:fix": "eslint ./ --fix",
         "swagger-autogen": "node src/swagger.js"
     },
     "husky": {
         "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
             "pre-commit": "npm test && npm run lint:fix"
         }
     },
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
         "morgan": "^1.10.0",
         "pg": "^8.4.2",
         "swagger-autogen": "^1.2.5",
@@ -35,6 +38,8 @@
         "@babel/polyfill": "^7.12.1",
         "@babel/preset-env": "^7.12.7",
         "@babel/register": "^7.12.1",
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
         "babel-eslint": "^10.1.0",
         "chai": "^4.2.0",
         "chai-http": "^4.3.0",
