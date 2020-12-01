@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { loginWithDefaultUser } = require('./common.test');
+const { loginWithDefaultAdminUser } = require('./common.test');
 
 chai.should();
 
@@ -10,7 +10,7 @@ let token;
 
 describe('Products', () => {
   before(async () => {
-    const res = await loginWithDefaultUser();
+    const res = await loginWithDefaultAdminUser();
     token = res.body.token;
   });
 

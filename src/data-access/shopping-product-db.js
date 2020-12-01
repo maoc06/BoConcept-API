@@ -23,8 +23,8 @@ export default function makeShoppingProduct({ makeDb }) {
   async function insert({ ...shoppingProduct }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
-                                shopping_product(pro_id, car_id, total, quantity) 
-                                VALUES($1, $2, $3, $4) RETURNING *`;
+                                shopping_product(pro_id, car_id, quantity) 
+                                VALUES($1, $2, $3) RETURNING *`;
     const result = await db.query(
       queryStatement,
       Object.values({ ...shoppingProduct })
@@ -37,8 +37,7 @@ export default function makeShoppingProduct({ makeDb }) {
     const queryStatement = `UPDATE shopping_product
                                 SET pro_id = $2,
                                     car_id = $3,
-                                    total = $4,
-                                    quantity = $5
+                                    quantity = $4
                                 WHERE shpr_id = $1 
                                 RETURNING *`;
     const result = await db.query(

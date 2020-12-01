@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { loginWithDefaultUser, getDefaultCustomer } = require('./common.test');
+const { loginWithDefaultAdminUser, getAdminUser } = require('./common.test');
 
 chai.should();
 chai.use(chaiHttp);
@@ -10,7 +10,7 @@ let token;
 
 describe('Customers', () => {
   before(async () => {
-    const res = await loginWithDefaultUser();
+    const res = await loginWithDefaultAdminUser();
     token = res.body.token;
   });
 
@@ -18,7 +18,7 @@ describe('Customers', () => {
     it('it should GET a customer by email', (done) => {
       chai
         .request(url)
-        .get(`/customer/${getDefaultCustomer().email}`)
+        .get(`/customer/${getAdminUser().email}`)
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);
@@ -48,7 +48,7 @@ describe('Customers', () => {
 
   describe('/PUT customer', () => {
     it('it should UPDATE a customer', (done) => {
-      const customer = getDefaultCustomer();
+      const customer = getAdminUser();
       customer.billing_address = 'new address';
       chai
         .request(url)
@@ -118,7 +118,7 @@ describe('Customers', () => {
     it('it should DELETE a customer', (done) => {
       chai
         .request(url)
-        .delete(`/customer/${getDefaultCustomer().email}`)
+        .delete(`/customer/${getAdminUser().email}`)
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);

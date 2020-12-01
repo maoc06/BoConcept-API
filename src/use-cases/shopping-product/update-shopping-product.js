@@ -17,7 +17,6 @@ export default function makeUpdateShoppingProduct({ shoppingProductDb }) {
       pro_id: shoppingProduct.getProductId(),
       car_id: shoppingProduct.getCarId(),
       quantity: shoppingProduct.getQuantity(),
-      total: shoppingProduct.getTotal(),
     });
   };
 }

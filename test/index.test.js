@@ -1,4 +1,4 @@
-require('./auth.test');
+require('./authentication.test');
 require('./products.test');
 require('./category.test');
 require('./payment-method.test');

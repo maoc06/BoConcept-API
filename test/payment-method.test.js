@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { loginWithDefaultUser } = require('./common.test');
+const { loginWithDefaultAdminUser } = require('./common.test');
 
 chai.should();
 chai.use(chaiHttp);
@@ -11,7 +11,7 @@ let lastPayId;
 
 describe('Payment Method', () => {
   before(async () => {
-    const res = await loginWithDefaultUser();
+    const res = await loginWithDefaultAdminUser();
     token = res.body.token;
   });
 
@@ -34,7 +34,7 @@ describe('Payment Method', () => {
     it('it should GET a payment method by id', (done) => {
       chai
         .request(url)
-        .get('/paymethod/3')
+        .get('/paymethod/1')
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);

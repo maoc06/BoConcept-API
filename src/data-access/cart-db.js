@@ -23,8 +23,8 @@ export default function makeCart({ makeDb }) {
   async function insert({ ...cart }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
-                                cart(email, pay_id, total, quantity) 
-                                VALUES($1, $2, $3, $4) RETURNING *`;
+                                cart(email, pay_id, quantity) 
+                                VALUES($1, $2, $3) RETURNING *`;
     const result = await db.query(queryStatement, Object.values({ ...cart }));
     return result.rows[0];
   }
@@ -34,8 +34,7 @@ export default function makeCart({ makeDb }) {
     const queryStatement = `UPDATE cart
                                 SET email = $2,
                                     pay_id = $3,
-                                    total = $4,
-                                    quantity = $5
+                                    quantity = $4
                                 WHERE car_id = $1 
                                 RETURNING *`;
     const result = await db.query(queryStatement, Object.values({ ...cart }));

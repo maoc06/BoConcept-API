@@ -1,19 +1,19 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { getDefaultCustomer } = require('./common.test');
+const { getAdminUser } = require('./common.test');
 
 chai.should();
 chai.use(chaiHttp);
 
 const url = 'http://localhost:3000/api';
 
-describe('Auth', () => {
+describe('Authentication', () => {
   describe('Sign-Up', () => {
     it('it should POST a customer', (done) => {
       chai
         .request(url)
         .post('/auth/signup')
-        .send(getDefaultCustomer())
+        .send(getAdminUser())
         .end((err, res) => {
           res.should.have.status(201);
           res.should.be.a('object');
@@ -31,7 +31,7 @@ describe('Auth', () => {
       chai
         .request(url)
         .post('/auth/signup')
-        .send(getDefaultCustomer())
+        .send(getAdminUser())
         .end((err, res) => {
           res.should.have.status(400);
           res.should.be.a('object');
@@ -63,7 +63,7 @@ describe('Auth', () => {
       chai
         .request(url)
         .post('/auth/signin')
-        .send({ email: getDefaultCustomer().email, password: 'wrongPassword' })
+        .send({ email: getAdminUser().email, password: 'wrongPassword' })
         .end((err, res) => {
           res.should.have.status(403);
           res.should.be.a('object');
@@ -76,7 +76,7 @@ describe('Auth', () => {
       chai
         .request(url)
         .post('/auth/signin')
-        .send(getDefaultCustomer())
+        .send(getAdminUser())
         .end((err, res) => {
           res.should.have.status(200);
           res.should.be.a('object');

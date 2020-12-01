@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { makeUserCredentials } from '../../models';
+import { makeUserCredentials, makeCustomer } from '../../models';
 
 export default function makeAuthCredentials({ customerDb, handleToken }) {
   return async function authCredentials(credentials) {
@@ -21,7 +21,8 @@ export default function makeAuthCredentials({ customerDb, handleToken }) {
     }
 
     // SI las validaciones van bien -> generar el token y retornarlo
-    const accessToken = handleToken({ user });
+    const userAuth = makeCustomer(existing);
+    const accessToken = handleToken({ userAuth });
     return accessToken;
   };
 }

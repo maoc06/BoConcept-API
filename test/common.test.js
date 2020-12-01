@@ -6,36 +6,30 @@ chai.use(chaiHttp);
 
 const url = 'http://localhost:3000/api';
 
-const defaultCustomer = {
+const defaultAdminUser = {
   first_name: 'Test First Name',
   last_name: 'Test Last Name',
-  email: 'test@email.com',
+  email: 'adim@test.com',
   password: 'testPassword',
+  rol_id: 1,
   billing_address: 'Test Address',
   phone: '1234567',
 };
 
-const defaultCredentials = {
-  email: defaultCustomer.email,
-  password: defaultCustomer.password,
+const defaultAdminCredentials = {
+  email: defaultAdminUser.email,
+  password: defaultAdminUser.password,
 };
 
-const getDefaultCustomer = () => {
-  return defaultCustomer;
+const getAdminUser = () => {
+  return defaultAdminUser;
 };
 
-const loginWithDefaultUser = async () => {
-  return chai.request(url).post('/auth/signin').send(defaultCredentials);
+const loginWithDefaultAdminUser = async () => {
+  return chai.request(url).post('/auth/signin').send(defaultAdminCredentials);
 };
-
-// const cleanDefaultUser = async (token) => {
-//   return chai
-//     .request(url)
-//     .delete(`/customer/${defaultCredentials.email}`)
-//     .set({ Authorization: `Bearer ${token}` });
-// };
 
 module.exports = {
-  getDefaultCustomer,
-  loginWithDefaultUser,
+  getAdminUser,
+  loginWithDefaultAdminUser,
 };

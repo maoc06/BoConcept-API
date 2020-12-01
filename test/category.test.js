@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { loginWithDefaultUser } = require('./common.test');
+const { loginWithDefaultAdminUser } = require('./common.test');
 
 chai.should();
 chai.use(chaiHttp);
@@ -11,7 +11,7 @@ let lastCatId;
 
 describe('Category', () => {
   before(async () => {
-    const res = await loginWithDefaultUser();
+    const res = await loginWithDefaultAdminUser();
     token = res.body.token;
   });
 

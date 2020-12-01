@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { loginWithDefaultUser, getDefaultCustomer } = require('./common.test');
+const { loginWithDefaultAdminUser, getAdminUser } = require('./common.test');
 
 chai.should();
 
@@ -11,7 +11,7 @@ let token;
 
 describe('Cart', () => {
   before(async () => {
-    const res = await loginWithDefaultUser();
+    const res = await loginWithDefaultAdminUser();
     token = res.body.token;
   });
 
@@ -19,7 +19,6 @@ describe('Cart', () => {
     it('it should not POST a cart without email field', (done) => {
       const cart = {
         pay_id: null,
-        total: 0,
         quantity: 0,
       };
       chai
@@ -42,7 +41,6 @@ describe('Cart', () => {
       const cart = {
         email: 'not@existing.com',
         pay_id: null,
-        total: 0,
         quantity: 0,
       };
       chai
@@ -63,9 +61,8 @@ describe('Cart', () => {
 
     it('it should POST a cart', (done) => {
       const cart = {
-        email: getDefaultCustomer().email,
+        email: getAdminUser().email,
         pay_id: null,
-        total: 0,
         quantity: 0,
       };
       chai
@@ -150,7 +147,7 @@ describe('Cart', () => {
     it('it should GET a cart by email', (done) => {
       chai
         .request(url)
-        .get(`/cart/by-customer/${getDefaultCustomer().email}`)
+        .get(`/cart/by-customer/${getAdminUser().email}`)
         .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           res.should.have.status(200);
@@ -166,9 +163,8 @@ describe('Cart', () => {
     it('it should not UPDATE a cart because not exists', (done) => {
       const cart = {
         car_id: 888999,
-        email: getDefaultCustomer().email,
+        email: getAdminUser().email,
         pay_id: null,
-        total: 0,
         quantity: 0,
       };
       chai
@@ -187,9 +183,8 @@ describe('Cart', () => {
 
     it('it should not UPDATE a cart whitout Id field', (done) => {
       const cart = {
-        email: getDefaultCustomer().email,
+        email: getAdminUser().email,
         pay_id: null,
-        total: 0,
         quantity: 0,
       };
       chai
@@ -209,9 +204,8 @@ describe('Cart', () => {
     it('it should not UPDATE a cart because payment not exists', (done) => {
       const cart = {
         car_id: lastCartId,
-        email: getDefaultCustomer().email,
+        email: getAdminUser().email,
         pay_id: 99999,
-        total: 0,
         quantity: 0,
       };
       chai
@@ -233,9 +227,8 @@ describe('Cart', () => {
     it('it should UPDATE a cart', (done) => {
       const cart = {
         car_id: lastCartId,
-        email: getDefaultCustomer().email,
+        email: getAdminUser().email,
         pay_id: null,
-        total: 0,
         quantity: 0,
       };
       chai

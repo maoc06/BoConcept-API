@@ -6,6 +6,8 @@ import {
   deleteCategory,
 } from '../controllers';
 import makeCallback from '../express-callback';
+import authorize from '../utils/middlewares/authorization';
+import { Admin, Customer } from '../utils/role';
 
 function getCategoryRoutes() {
   const router = express.Router();
@@ -22,7 +24,7 @@ function getCategoryRoutes() {
                description: 'Listado de categorias.' 
         }
     */
-  router.get('/', makeCallback(getCategory));
+  router.get('/', authorize([Admin, Customer]), makeCallback(getCategory));
   // #swagger.end
 
   /*
@@ -42,7 +44,7 @@ function getCategoryRoutes() {
                description: 'Category no encontrado.' 
         }
     */
-  router.get('/:id', makeCallback(getCategory));
+  router.get('/:id', authorize([Admin, Customer]), makeCallback(getCategory));
   // #swagger.end
 
   /*
@@ -64,7 +66,7 @@ function getCategoryRoutes() {
                description: 'Categoria Guardada.' 
         }
     */
-  router.post('/', makeCallback(postCategory));
+  router.post('/', authorize(Admin), makeCallback(postCategory));
   // #swagger.end
 
   /*
@@ -90,7 +92,7 @@ function getCategoryRoutes() {
                description: 'Category no encontrado.' 
         }
     */
-  router.put('/', makeCallback(putCategory));
+  router.put('/', authorize(Admin), makeCallback(putCategory));
   // #swagger.end
 
   /*
@@ -110,7 +112,7 @@ function getCategoryRoutes() {
                description: 'Category no encontrada.' 
         }
     */
-  router.delete('/:id', makeCallback(deleteCategory));
+  router.delete('/:id', authorize(Admin), makeCallback(deleteCategory));
   // #swagger.end
   return router;
 }

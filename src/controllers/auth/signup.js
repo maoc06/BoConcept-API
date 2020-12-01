@@ -15,6 +15,7 @@ export default function makeSignUp({ addCustomer }) {
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers: {
           'Content-Type': 'application/json',

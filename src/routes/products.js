@@ -6,6 +6,8 @@ import {
   deleteProduct,
 } from '../controllers';
 import makeCallback from '../express-callback';
+import authorize from '../utils/middlewares/authorization';
+import { Admin, Customer } from '../utils/role';
 
 function getProductsRoutes() {
   const router = express.Router();
@@ -21,7 +23,7 @@ function getProductsRoutes() {
                description: 'Productos listados.' 
         }
     */
-  router.get('/', makeCallback(getProducts));
+  router.get('/', authorize([Admin, Customer]), makeCallback(getProducts));
   // #swagger.end
 
   /*
@@ -37,7 +39,7 @@ function getProductsRoutes() {
                description: 'Producto encontrado.' 
         }
     */
-  router.get('/:id', makeCallback(getProducts));
+  router.get('/:id', authorize([Admin, Customer]), makeCallback(getProducts));
   // #swagger.end
 
   /*
@@ -59,7 +61,7 @@ function getProductsRoutes() {
                description: 'Producto Guardado.' 
         }
     */
-  router.post('/', makeCallback(postProduct));
+  router.post('/', authorize(Admin), makeCallback(postProduct));
   // #swagger.end
 
   /*
@@ -74,7 +76,7 @@ function getProductsRoutes() {
                description: 'Producto Actualizado.' 
         }
     */
-  router.put('/', makeCallback(putProduct));
+  router.put('/', authorize(Admin), makeCallback(putProduct));
   // #swagger.end
 
   /*
@@ -91,7 +93,7 @@ function getProductsRoutes() {
         }
         #swagger.responses[404]
     */
-  router.delete('/:id', makeCallback(deleteProduct));
+  router.delete('/:id', authorize(Admin), makeCallback(deleteProduct));
   // #swagger.end
   return router;
 }

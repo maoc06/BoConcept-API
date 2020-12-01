@@ -6,11 +6,17 @@ import {
   deleteShoppingProduct,
 } from '../controllers';
 import makeCallback from '../express-callback';
+import authorize from '../utils/middlewares/authorization';
+import { Admin, Customer } from '../utils/role';
 
 function getShoppingProductRoutes() {
   const router = express.Router();
 
-  router.get('/', makeCallback(getShoppingProduct));
+  router.get(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(getShoppingProduct)
+  );
 
   /*
         #swagger.start
@@ -29,12 +35,24 @@ function getShoppingProductRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.get('/:shprId', makeCallback(getShoppingProduct));
+  router.get(
+    '/:shprId',
+    authorize([Admin, Customer]),
+    makeCallback(getShoppingProduct)
+  );
   // #swagger.end
 
-  router.get('/by-cart/:carId', makeCallback(getShoppingProduct));
+  router.get(
+    '/by-cart/:carId',
+    authorize([Admin, Customer]),
+    makeCallback(getShoppingProduct)
+  );
 
-  router.post('/', makeCallback(postShoppingProduct));
+  router.post(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(postShoppingProduct)
+  );
 
   /*
         #swagger.start
@@ -52,7 +70,11 @@ function getShoppingProductRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.put('/', makeCallback(putShoppingProduct));
+  router.put(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(putShoppingProduct)
+  );
   // #swagger.end
 
   /*
@@ -72,7 +94,11 @@ function getShoppingProductRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.delete('/:shprId', makeCallback(deleteShoppingProduct));
+  router.delete(
+    '/:shprId',
+    authorize([Admin, Customer]),
+    makeCallback(deleteShoppingProduct)
+  );
   // #swagger.end
   return router;
 }

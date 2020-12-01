@@ -20,6 +20,7 @@ export default function makeAddCustomer({ customerDb }) {
       first_name: customer.getFirstName(),
       last_name: customer.getLastName(),
       email: customer.getEmail(),
+      rol_id: customer.getRol(),
       password: customer.getPassword(),
       billing_address: customer.getBillingAddress(),
       phone: customer.getPhone(),

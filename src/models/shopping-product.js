@@ -6,7 +6,6 @@ export default function buildMakeShoppingProduct({}) {
     pro_id,
     car_id,
     quantity,
-    total,
   } = {}) {
     if (!pro_id) {
       throw new Error('Shopping product must have a product id');
@@ -17,15 +16,11 @@ export default function buildMakeShoppingProduct({}) {
     if (!quantity) {
       throw new Error('Shopping product must have a quantity of product');
     }
-    if (!total) {
-      throw new Error('Shopping product must have a total');
-    }
     return Object.freeze({
       getShoopingProductId: () => shpr_id,
       getProductId: () => pro_id,
       getCarId: () => car_id,
       getQuantity: () => quantity,
-      getTotal: () => total,
     });
   };
 }

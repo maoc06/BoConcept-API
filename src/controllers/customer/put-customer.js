@@ -3,6 +3,7 @@ export default function makePutCustomer({ updateCustomer }) {
     const headers = {
       'Content-Type': 'application/json',
     };
+
     try {
       const { ...customerInfo } = httpRequest.body;
       const customer = await updateCustomer({ ...customerInfo });

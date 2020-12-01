@@ -1,6 +1,8 @@
 import express from 'express';
 import { getCustomer, putCustomer, deleteCustomer } from '../controllers';
 import makeCallback from '../express-callback';
+import authorize from '../utils/middlewares/authorization';
+import { Admin, Customer } from '../utils/role';
 
 function getCustomerRoutes() {
   const router = express.Router();
@@ -21,7 +23,11 @@ function getCustomerRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.get('/:email', makeCallback(getCustomer));
+  router.get(
+    '/:email',
+    authorize([Admin, Customer]),
+    makeCallback(getCustomer)
+  );
   // #swagger.end
 
   /*
@@ -40,7 +46,7 @@ function getCustomerRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.put('/', makeCallback(putCustomer));
+  router.put('/', authorize(Admin), makeCallback(putCustomer));
   // #swagger.end
 
   /*
@@ -60,7 +66,7 @@ function getCustomerRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.delete('/:email', makeCallback(deleteCustomer));
+  router.delete('/:email', authorize(Admin), makeCallback(deleteCustomer));
   // #swagger.end
   return router;
 }

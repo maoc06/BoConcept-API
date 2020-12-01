@@ -7,15 +7,25 @@ import {
   deleteCart,
 } from '../controllers';
 import makeCallback from '../express-callback';
+import authorize from '../utils/middlewares/authorization';
+import { Admin, Customer } from '../utils/role';
 
 function getCartRoutes() {
   const router = express.Router();
-  router.get('/', makeCallback(getCart));
-  router.get('/:cartId', makeCallback(getCart));
-  router.get('/by-customer/:email', makeCallback(getCartByEmail));
-  router.post('/', makeCallback(postCart));
-  router.put('/', makeCallback(putCart));
-  router.delete('/:cartId', makeCallback(deleteCart));
+  router.get('/', authorize([Admin, Customer]), makeCallback(getCart));
+  router.get('/:cartId', authorize([Admin, Customer]), makeCallback(getCart));
+  router.get(
+    '/by-customer/:email',
+    authorize([Admin, Customer]),
+    makeCallback(getCartByEmail)
+  );
+  router.post('/', authorize([Admin, Customer]), makeCallback(postCart));
+  router.put('/', authorize([Admin, Customer]), makeCallback(putCart));
+  router.delete(
+    '/:cartId',
+    authorize([Admin, Customer]),
+    makeCallback(deleteCart)
+  );
   return router;
 }
 

@@ -6,6 +6,8 @@ import {
   deletePaymentMethod,
 } from '../controllers';
 import makeCallback from '../express-callback';
+import authorize from '../utils/middlewares/authorization';
+import { Admin, Customer } from '../utils/role';
 
 function getPaymentMethodRoutes() {
   const router = express.Router();
@@ -22,7 +24,7 @@ function getPaymentMethodRoutes() {
                description: 'Listado de metodos de pagos.' 
         }
     */
-  router.get('/', makeCallback(getPaymentMethod));
+  router.get('/', authorize([Admin, Customer]), makeCallback(getPaymentMethod));
   // #swagger.end
 
   /*
@@ -42,7 +44,11 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago no encontrado.' 
         }
     */
-  router.get('/:id', makeCallback(getPaymentMethod));
+  router.get(
+    '/:id',
+    authorize([Admin, Customer]),
+    makeCallback(getPaymentMethod)
+  );
   // #swagger.end
 
   /*
@@ -64,7 +70,7 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago Guardado.' 
         }
     */
-  router.post('/', makeCallback(postPaymentMethod));
+  router.post('/', authorize(Admin), makeCallback(postPaymentMethod));
   // #swagger.end
 
   /*
@@ -90,7 +96,7 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago no encontrado.' 
         }
     */
-  router.put('/', makeCallback(putPaymentMethod));
+  router.put('/', authorize(Admin), makeCallback(putPaymentMethod));
   // #swagger.end
 
   /*
@@ -110,7 +116,7 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago no encontrada.' 
         }
     */
-  router.delete('/:id', makeCallback(deletePaymentMethod));
+  router.delete('/:id', authorize(Admin), makeCallback(deletePaymentMethod));
   // #swagger.end
   return router;
 }

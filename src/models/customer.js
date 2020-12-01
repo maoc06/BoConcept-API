@@ -6,6 +6,7 @@ export default function buildMakeCustomer({}) {
     last_name,
     email,
     password,
+    rol_id = 2,
     billing_address,
     phone,
   } = {}) {
@@ -25,6 +26,7 @@ export default function buildMakeCustomer({}) {
       getFirstName: () => first_name,
       getLastName: () => last_name,
       getEmail: () => email,
+      getRol: () => rol_id,
       getPassword: () => password,
       getBillingAddress: () => billing_address,
       getPhone: () => phone,
