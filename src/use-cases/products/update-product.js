@@ -16,6 +16,7 @@ export default function makeUpdateProduct({ productsDb }) {
       description: product.getDescription(),
       collection: product.getCollection(),
       price: product.getPrice(),
+      enable: product.getEnable(),
     });
   };
 }

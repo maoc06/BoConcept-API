@@ -30,6 +30,7 @@ import makeRemoveShoppingProduct from './shopping-product/remove-shopping-produc
 // CART
 import makeListCart from './cart/list-cart';
 import makeListCartByEmail from './cart/list-cart-by-email';
+import makeListCartEnable from './cart/list-cart-enable';
 import makeAddCart from './cart/add-cart';
 import makeUpdateCart from './cart/update-cart';
 import makeRemoveCart from './cart/remove-cart';
@@ -74,6 +75,7 @@ const updateShoppingProduct = makeUpdateShoppingProduct({ shoppingProductDb });
 const removeShoppingProduct = makeRemoveShoppingProduct({ shoppingProductDb });
 const listCart = makeListCart({ cartDb });
 const listCartByEmail = makeListCartByEmail({ cartDb, customerDb });
+const listCartEnable = makeListCartEnable({ cartDb, customerDb });
 const addCart = makeAddCart({ cartDb, customerDb });
 const updateCart = makeUpdateCart({ cartDb, paymentMethodDb });
 const removeCart = makeRemoveCart({ cartDb });
@@ -103,6 +105,7 @@ export {
   removeShoppingProduct,
   listCart,
   listCartByEmail,
+  listCartEnable,
   addCart,
   updateCart,
   removeCart,

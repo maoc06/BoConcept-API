@@ -13,6 +13,7 @@ export default function makeUpdateCategory({ categoryDb }) {
     return categoryDb.update({
       cat_id: category.getCategoryId(),
       name: category.getCategoryName(),
+      enable: category.getEnable(),
     });
   };
 }

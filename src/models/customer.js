@@ -9,6 +9,7 @@ export default function buildMakeCustomer({}) {
     rol_id = 2,
     billing_address,
     phone,
+    enable = 1,
   } = {}) {
     if (!first_name) {
       throw new Error('User must have a first name');
@@ -22,6 +23,9 @@ export default function buildMakeCustomer({}) {
     if (!password) {
       throw new Error('User must have a password');
     }
+    if (!enable) {
+      throw new Error('The cart must have a status (enabled/disabled)');
+    }
     return Object.freeze({
       getFirstName: () => first_name,
       getLastName: () => last_name,
@@ -30,6 +34,7 @@ export default function buildMakeCustomer({}) {
       getPassword: () => password,
       getBillingAddress: () => billing_address,
       getPhone: () => phone,
+      getEnable: () => enable,
     });
   };
 }

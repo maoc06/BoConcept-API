@@ -5,6 +5,7 @@ export default function makeAddCategory({ categoryDb }) {
     const category = makeCategory(categoryInfo);
     return categoryDb.insert({
       name: category.getCategoryName(),
+      enable: category.getEnable(),
     });
   };
 }

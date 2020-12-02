@@ -23,6 +23,7 @@ import {
   removeShoppingProduct,
   listCart,
   listCartByEmail,
+  listCartEnable,
   addCart,
   updateCart,
   removeCart,
@@ -58,6 +59,7 @@ import makeDeleteShoppingProduct from './shopping-product/delete-shopping-produc
 // CART CONTROLLERS
 import makeGetCart from './cart/get-cart';
 import makeGetCartByEmail from './cart/get-cart-by-email';
+import makeGetCartEnable from './cart/get-cart-enable';
 import makePostCart from './cart/post-cart';
 import makePutCart from './cart/put-cart';
 import makeDeleteCart from './cart/delete-cart';
@@ -99,6 +101,7 @@ const deleteShoppingProduct = makeDeleteShoppingProduct({
 // CART CONTROLLERS EXEC
 const getCart = makeGetCart({ listCart });
 const getCartByEmail = makeGetCartByEmail({ listCartByEmail });
+const getCartEnable = makeGetCartEnable({ listCartEnable });
 const postCart = makePostCart({ addCart });
 const putCart = makePutCart({ updateCart });
 const deleteCart = makeDeleteCart({ removeCart });
@@ -128,6 +131,7 @@ export {
   deleteShoppingProduct,
   getCart,
   getCartByEmail,
+  getCartEnable,
   postCart,
   putCart,
   deleteCart,

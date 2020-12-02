@@ -16,6 +16,7 @@ export default function makeAddProduct({ productsDb }) {
       description: product.getDescription(),
       collection: product.getCollection(),
       price: product.getPrice(),
+      enable: product.getEnable(),
     });
   };
 }

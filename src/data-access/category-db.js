@@ -16,8 +16,8 @@ export default function makeCategoryDb({ makeDb }) {
   async function insert({ ...category }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
-                                category(name) 
-                                VALUES($1) RETURNING *`;
+                                category(name, enable) 
+                                VALUES($1, $2) RETURNING *`;
     const result = await db.query(
       queryStatement,
       Object.values({ ...category })
@@ -28,7 +28,8 @@ export default function makeCategoryDb({ makeDb }) {
   async function update({ ...category }) {
     const db = await makeDb();
     const queryStatement = `UPDATE category
-                                SET name = $2
+                                SET name = $2,
+                                    enable = $3
                                 WHERE cat_id = $1 
                                 RETURNING *`;
     const result = await db.query(

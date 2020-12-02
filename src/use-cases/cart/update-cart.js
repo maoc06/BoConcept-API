@@ -22,6 +22,7 @@ export default function makeUpdateCart({ cartDb, paymentMethodDb }) {
       email: cart.getEmail(),
       pay_id: cart.getPayId(),
       quantity: cart.getQuantity(),
+      enable: cart.getEnable(),
     });
   };
 }

@@ -13,6 +13,7 @@ export default function makeAddCart({ cartDb, customerDb }) {
       email: cart.getEmail(),
       pay_id: cart.getPayId(),
       quantity: cart.getQuantity(),
+      enable: cart.getEnable(),
     });
   };
 }

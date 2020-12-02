@@ -5,6 +5,7 @@ export default function makeAddPaymentMethod({ paymentMethodDb }) {
     const paymentMethod = makePaymentMethod(paymentMethodInfo);
     return paymentMethodDb.insert({
       name: paymentMethod.getPayName(),
+      enable: paymentMethod.getEnable(),
     });
   };
 }

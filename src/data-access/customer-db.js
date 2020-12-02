@@ -1,8 +1,8 @@
 export default function makeCustomerDb({ makeDb }) {
   async function findById(email) {
     const db = await makeDb();
-    const queryStatement = `SELECT first_name, last_name, email, rol_id, password, billing_address, phone
-                                FROM customer WHERE email = $1`;
+    const queryStatement = `SELECT *
+                            FROM customer WHERE email = $1`;
     const result = (await db.query(queryStatement, [email])).rows[0];
     return result;
   }
@@ -17,8 +17,9 @@ export default function makeCustomerDb({ makeDb }) {
                                   rol_id, 
                                   password, 
                                   billing_address, 
-                                  phone)
-                                VALUES($1, $2, $3, $4, $5, $6, $7)
+                                  phone,
+                                  enable)
+                                VALUES($1, $2, $3, $4, $5, $6, $7, $8)
                                 RETURNING *`;
     const result = await db.query(
       queryStatement,
@@ -35,7 +36,8 @@ export default function makeCustomerDb({ makeDb }) {
                                     password = $4,
                                     rol_id = $5,
                                     billing_address = $6, 
-                                    phone = $7
+                                    phone = $7,
+                                    enable = $8
                                 WHERE email = $3
                                 RETURNING *`;
     const result = await db.query(

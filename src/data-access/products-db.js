@@ -16,8 +16,8 @@ export default function makeProductDb({ makeDb }) {
   async function insert({ ...product }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
-                                product(pro_id, name, description, collection, price) 
-                                VALUES($1, $2, $3, $4, $5) RETURNING *`;
+                                product(pro_id, name, description, collection, price, enable) 
+                                VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
     const result = await db.query(
       queryStatement,
       Object.values({ ...product })
@@ -31,7 +31,8 @@ export default function makeProductDb({ makeDb }) {
                                 SET name = $2,
                                     description = $3,
                                     collection = $4,
-                                    price = $5
+                                    price = $5,
+                                    enable = $6
                                 WHERE pro_id = $1 
                                 RETURNING *`;
     const result = await db.query(

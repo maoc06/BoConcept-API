@@ -2,6 +2,7 @@ import express from 'express';
 import {
   getCart,
   getCartByEmail,
+  getCartEnable,
   postCart,
   putCart,
   deleteCart,
@@ -18,6 +19,11 @@ function getCartRoutes() {
     '/by-customer/:email',
     authorize([Admin, Customer]),
     makeCallback(getCartByEmail)
+  );
+  router.get(
+    '/by-enable/:email',
+    authorize([Admin, Customer]),
+    makeCallback(getCartEnable)
   );
   router.post('/', authorize([Admin, Customer]), makeCallback(postCart));
   router.put('/', authorize([Admin, Customer]), makeCallback(putCart));
