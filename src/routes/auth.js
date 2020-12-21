@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUp, signIn } from '../controllers';
+import { authControllers } from '../controllers';
 import makeCallback from '../express-callback';
 
 function getAuthRoutes() {
@@ -27,7 +27,7 @@ function getAuthRoutes() {
                description: 'Customer email already exists' 
         }
     */
-  router.post('/signup', makeCallback(signUp));
+  router.post('/signup', makeCallback(authControllers.signUp));
   // #swagger.end
 
   /*
@@ -53,7 +53,7 @@ function getAuthRoutes() {
                description: 'Forbidden' 
         }
     */
-  router.post('/signin', makeCallback(signIn));
+  router.post('/signin', makeCallback(authControllers.signIn));
   // #swagger.end
   return router;
 }

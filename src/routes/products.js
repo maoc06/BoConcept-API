@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-  getProducts,
-  postProduct,
-  putProduct,
-  deleteProduct,
-} from '../controllers';
+import { productControllers } from '../controllers';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Admin, Customer } from '../utils/role';
@@ -23,7 +18,11 @@ function getProductsRoutes() {
                description: 'Productos listados.' 
         }
     */
-  router.get('/', authorize([Admin, Customer]), makeCallback(getProducts));
+  router.get(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(productControllers.getProducts)
+  );
   // #swagger.end
 
   /*
@@ -39,8 +38,30 @@ function getProductsRoutes() {
                description: 'Producto encontrado.' 
         }
     */
-  router.get('/:id', authorize([Admin, Customer]), makeCallback(getProducts));
+  router.get(
+    '/:id',
+    authorize([Admin, Customer]),
+    makeCallback(productControllers.getProducts)
+  );
   // #swagger.end
+
+  router.get(
+    '/by-cat/:id',
+    authorize([Admin, Customer]),
+    makeCallback(productControllers.getProductsByCategory)
+  );
+
+  router.get(
+    '/query/:query',
+    authorize([Admin, Customer]),
+    makeCallback(productControllers.getProductsByQuery)
+  );
+
+  router.get(
+    '/image/:proId',
+    authorize([Admin, Customer]),
+    makeCallback(productControllers.getProductImage)
+  );
 
   /*
         #swagger.start
@@ -61,8 +82,18 @@ function getProductsRoutes() {
                description: 'Producto Guardado.' 
         }
     */
-  router.post('/', authorize(Admin), makeCallback(postProduct));
+  router.post(
+    '/',
+    authorize(Admin),
+    makeCallback(productControllers.postProduct)
+  );
   // #swagger.end
+
+  router.post(
+    '/image',
+    authorize(Admin),
+    makeCallback(productControllers.postProductImage)
+  );
 
   /*
         #swagger.start
@@ -76,8 +107,18 @@ function getProductsRoutes() {
                description: 'Producto Actualizado.' 
         }
     */
-  router.put('/', authorize(Admin), makeCallback(putProduct));
+  router.put(
+    '/',
+    authorize(Admin),
+    makeCallback(productControllers.putProduct)
+  );
   // #swagger.end
+
+  router.put(
+    '/image',
+    authorize(Admin),
+    makeCallback(productControllers.putProductImage)
+  );
 
   /*
         #swagger.start
@@ -93,8 +134,19 @@ function getProductsRoutes() {
         }
         #swagger.responses[404]
     */
-  router.delete('/:id', authorize(Admin), makeCallback(deleteProduct));
+  router.delete(
+    '/:id',
+    authorize(Admin),
+    makeCallback(productControllers.deleteProduct)
+  );
   // #swagger.end
+
+  router.delete(
+    '/image/:id',
+    authorize(Admin),
+    makeCallback(productControllers.deleteProductImage)
+  );
+
   return router;
 }
 

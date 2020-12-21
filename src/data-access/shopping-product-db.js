@@ -20,6 +20,20 @@ export default function makeShoppingProduct({ makeDb }) {
     return result;
   }
 
+  async function findByEnableCarId(email) {
+    const db = await makeDb();
+    const queryStatement = `SELECT shpr_id, pro_id, name, price, quantity 
+                            FROM shopping_product NATURAL JOIN product
+                            WHERE car_id IN (
+                              SELECT car_id
+                              FROM cart
+                              WHERE email = $1
+                              AND enable = 1
+                            )`;
+    const result = (await db.query(queryStatement, [email])).rows;
+    return result;
+  }
+
   async function insert({ ...shoppingProduct }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
@@ -58,6 +72,7 @@ export default function makeShoppingProduct({ makeDb }) {
     findAll,
     findById,
     findByCarId,
+    findByEnableCarId,
     insert,
     update,
     deleteById,

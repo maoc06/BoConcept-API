@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-  getCategory,
-  postCategory,
-  putCategory,
-  deleteCategory,
-} from '../controllers';
+import { categoryControllers } from '../controllers';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Admin, Customer } from '../utils/role';
@@ -24,7 +19,11 @@ function getCategoryRoutes() {
                description: 'Listado de categorias.' 
         }
     */
-  router.get('/', authorize([Admin, Customer]), makeCallback(getCategory));
+  router.get(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(categoryControllers.getCategory)
+  );
   // #swagger.end
 
   /*
@@ -44,7 +43,11 @@ function getCategoryRoutes() {
                description: 'Category no encontrado.' 
         }
     */
-  router.get('/:id', authorize([Admin, Customer]), makeCallback(getCategory));
+  router.get(
+    '/:id',
+    authorize([Admin, Customer]),
+    makeCallback(categoryControllers.getCategory)
+  );
   // #swagger.end
 
   /*
@@ -66,7 +69,11 @@ function getCategoryRoutes() {
                description: 'Categoria Guardada.' 
         }
     */
-  router.post('/', authorize(Admin), makeCallback(postCategory));
+  router.post(
+    '/',
+    authorize(Admin),
+    makeCallback(categoryControllers.postCategory)
+  );
   // #swagger.end
 
   /*
@@ -92,7 +99,11 @@ function getCategoryRoutes() {
                description: 'Category no encontrado.' 
         }
     */
-  router.put('/', authorize(Admin), makeCallback(putCategory));
+  router.put(
+    '/',
+    authorize(Admin),
+    makeCallback(categoryControllers.putCategory)
+  );
   // #swagger.end
 
   /*
@@ -112,7 +123,11 @@ function getCategoryRoutes() {
                description: 'Category no encontrada.' 
         }
     */
-  router.delete('/:id', authorize(Admin), makeCallback(deleteCategory));
+  router.delete(
+    '/:id',
+    authorize(Admin),
+    makeCallback(categoryControllers.deleteCategory)
+  );
   // #swagger.end
   return router;
 }

@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-  getShoppingProduct,
-  postShoppingProduct,
-  putShoppingProduct,
-  deleteShoppingProduct,
-} from '../controllers';
+import { shoppingProductControllers } from '../controllers';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Admin, Customer } from '../utils/role';
@@ -15,7 +10,7 @@ function getShoppingProductRoutes() {
   router.get(
     '/',
     authorize([Admin, Customer]),
-    makeCallback(getShoppingProduct)
+    makeCallback(shoppingProductControllers.getShoppingProduct)
   );
 
   /*
@@ -38,20 +33,26 @@ function getShoppingProductRoutes() {
   router.get(
     '/:shprId',
     authorize([Admin, Customer]),
-    makeCallback(getShoppingProduct)
+    makeCallback(shoppingProductControllers.getShoppingProduct)
   );
   // #swagger.end
 
   router.get(
     '/by-cart/:carId',
     authorize([Admin, Customer]),
-    makeCallback(getShoppingProduct)
+    makeCallback(shoppingProductControllers.getShoppingProduct)
+  );
+
+  router.get(
+    '/by-enable-cart/:email',
+    authorize([Admin, Customer]),
+    makeCallback(shoppingProductControllers.getShoppingProductByEnableCart)
   );
 
   router.post(
     '/',
     authorize([Admin, Customer]),
-    makeCallback(postShoppingProduct)
+    makeCallback(shoppingProductControllers.postShoppingProduct)
   );
 
   /*
@@ -73,7 +74,7 @@ function getShoppingProductRoutes() {
   router.put(
     '/',
     authorize([Admin, Customer]),
-    makeCallback(putShoppingProduct)
+    makeCallback(shoppingProductControllers.putShoppingProduct)
   );
   // #swagger.end
 
@@ -97,7 +98,7 @@ function getShoppingProductRoutes() {
   router.delete(
     '/:shprId',
     authorize([Admin, Customer]),
-    makeCallback(deleteShoppingProduct)
+    makeCallback(shoppingProductControllers.deleteShoppingProduct)
   );
   // #swagger.end
   return router;

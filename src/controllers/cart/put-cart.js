@@ -6,6 +6,7 @@ export default function makePutCart({ updateCart }) {
 
     try {
       const { ...cartInfo } = httpRequest.body;
+
       const cart = await updateCart({
         ...cartInfo,
       });

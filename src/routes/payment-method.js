@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-  getPaymentMethod,
-  postPaymentMethod,
-  putPaymentMethod,
-  deletePaymentMethod,
-} from '../controllers';
+import { paymentMethodControllers } from '../controllers';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Admin, Customer } from '../utils/role';
@@ -24,7 +19,11 @@ function getPaymentMethodRoutes() {
                description: 'Listado de metodos de pagos.' 
         }
     */
-  router.get('/', authorize([Admin, Customer]), makeCallback(getPaymentMethod));
+  router.get(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(paymentMethodControllers.getPaymentMethod)
+  );
   // #swagger.end
 
   /*
@@ -47,7 +46,7 @@ function getPaymentMethodRoutes() {
   router.get(
     '/:id',
     authorize([Admin, Customer]),
-    makeCallback(getPaymentMethod)
+    makeCallback(paymentMethodControllers.getPaymentMethod)
   );
   // #swagger.end
 
@@ -70,7 +69,11 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago Guardado.' 
         }
     */
-  router.post('/', authorize(Admin), makeCallback(postPaymentMethod));
+  router.post(
+    '/',
+    authorize(Admin),
+    makeCallback(paymentMethodControllers.postPaymentMethod)
+  );
   // #swagger.end
 
   /*
@@ -96,7 +99,11 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago no encontrado.' 
         }
     */
-  router.put('/', authorize(Admin), makeCallback(putPaymentMethod));
+  router.put(
+    '/',
+    authorize(Admin),
+    makeCallback(paymentMethodControllers.putPaymentMethod)
+  );
   // #swagger.end
 
   /*
@@ -116,7 +123,11 @@ function getPaymentMethodRoutes() {
                description: 'Metodo de pago no encontrada.' 
         }
     */
-  router.delete('/:id', authorize(Admin), makeCallback(deletePaymentMethod));
+  router.delete(
+    '/:id',
+    authorize(Admin),
+    makeCallback(paymentMethodControllers.deletePaymentMethod)
+  );
   // #swagger.end
   return router;
 }

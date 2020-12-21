@@ -1,8 +1,21 @@
 export default function makeProductDb({ makeDb }) {
+  async function findProductImages(proId) {
+    const db = await makeDb();
+    const queryStatement = `SELECT * FROM product_image WHERE pro_id = $1`;
+    const result = (await db.query(queryStatement, [proId])).rows;
+    return result;
+  }
+
   async function findAll() {
     const db = await makeDb();
     const queryStatement = 'SELECT * FROM product';
     const result = (await db.query(queryStatement)).rows;
+    // result.map(async (item) => {
+    //   console.group('=>', item.name);
+    //   const images = await findProductImages(item.pro_id);
+    //   console.log(images);
+    //   console.groupEnd();
+    // });
     return result;
   }
 
@@ -10,6 +23,27 @@ export default function makeProductDb({ makeDb }) {
     const db = await makeDb();
     const queryStatement = `SELECT * FROM product WHERE pro_id = $1`;
     const result = (await db.query(queryStatement, [proId])).rows[0];
+    const images = await findProductImages(proId);
+    result.images = images;
+    return result;
+  }
+
+  async function findByQuery(query) {
+    const db = await makeDb();
+    const queryStatement = `SELECT * 
+                            FROM product
+                            WHERE name ILIKE '%' || $1 || '%'
+                            OR description ILIKE '%' || $1 || '%'`;
+    const result = (await db.query(queryStatement, [query])).rows;
+    return result;
+  }
+
+  async function findByCategory(catId) {
+    const db = await makeDb();
+    const queryStatement = `SELECT * 
+                            FROM product NATURAL JOIN pro_cat
+                            WHERE cat_id = $1`;
+    const result = (await db.query(queryStatement, [catId])).rows;
     return result;
   }
 
@@ -52,6 +86,8 @@ export default function makeProductDb({ makeDb }) {
   return Object.freeze({
     findAll,
     findById,
+    findByQuery,
+    findByCategory,
     insert,
     update,
     deleteById,

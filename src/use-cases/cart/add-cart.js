@@ -11,8 +11,7 @@ export default function makeAddCart({ cartDb, customerDb }) {
 
     return cartDb.insert({
       email: cart.getEmail(),
-      pay_id: cart.getPayId(),
-      quantity: cart.getQuantity(),
+      shipping_method_id: cart.getShippingMethod(),
       enable: cart.getEnable(),
     });
   };

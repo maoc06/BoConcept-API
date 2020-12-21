@@ -4,8 +4,11 @@ export default function buildMakeCart({}) {
   return function makeCart({
     car_id,
     email,
+    card_number,
     pay_id,
-    quantity,
+    billing_addres_id,
+    shipping_method_id = 1,
+    payment_date,
     enable = 1,
   } = {}) {
     if (!email) {
@@ -14,11 +17,17 @@ export default function buildMakeCart({}) {
     if (!enable) {
       throw new Error('The cart must have a status (enabled/disabled)');
     }
+    if (!shipping_method_id) {
+      throw new Error('The cart must have a shipping method');
+    }
     return Object.freeze({
       getCartId: () => car_id,
       getEmail: () => email,
+      getCardNumber: () => card_number,
       getPayId: () => pay_id,
-      getQuantity: () => quantity,
+      getBillingAddress: () => billing_addres_id,
+      getShippingMethod: () => shipping_method_id,
+      getPaymentDate: () => payment_date,
       getEnable: () => enable,
     });
   };

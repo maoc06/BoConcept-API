@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCustomer, putCustomer, deleteCustomer } from '../controllers';
+import { customerControllers } from '../controllers';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Admin, Customer } from '../utils/role';
@@ -26,7 +26,7 @@ function getCustomerRoutes() {
   router.get(
     '/:email',
     authorize([Admin, Customer]),
-    makeCallback(getCustomer)
+    makeCallback(customerControllers.getCustomer)
   );
   // #swagger.end
 
@@ -46,7 +46,11 @@ function getCustomerRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.put('/', authorize(Admin), makeCallback(putCustomer));
+  router.put(
+    '/',
+    authorize(Admin),
+    makeCallback(customerControllers.putCustomer)
+  );
   // #swagger.end
 
   /*
@@ -66,7 +70,11 @@ function getCustomerRoutes() {
                description: 'Customer no encontrado.' 
         }
     */
-  router.delete('/:email', authorize(Admin), makeCallback(deleteCustomer));
+  router.delete(
+    '/:email',
+    authorize(Admin),
+    makeCallback(customerControllers.deleteCustomer)
+  );
   // #swagger.end
   return router;
 }

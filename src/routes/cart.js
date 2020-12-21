@@ -1,37 +1,77 @@
 import express from 'express';
-import {
-  getCart,
-  getCartByEmail,
-  getCartEnable,
-  postCart,
-  putCart,
-  deleteCart,
-} from '../controllers';
+import { cartControllers } from '../controllers';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Admin, Customer } from '../utils/role';
 
 function getCartRoutes() {
   const router = express.Router();
-  router.get('/', authorize([Admin, Customer]), makeCallback(getCart));
-  router.get('/:cartId', authorize([Admin, Customer]), makeCallback(getCart));
+  router.get(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.getCart)
+  );
+
+  router.get(
+    '/:cartId',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.getCart)
+  );
+
   router.get(
     '/by-customer/:email',
     authorize([Admin, Customer]),
-    makeCallback(getCartByEmail)
+    makeCallback(cartControllers.getCartByEmail)
   );
+
   router.get(
     '/by-enable/:email',
     authorize([Admin, Customer]),
-    makeCallback(getCartEnable)
+    makeCallback(cartControllers.getCartEnable)
   );
-  router.post('/', authorize([Admin, Customer]), makeCallback(postCart));
-  router.put('/', authorize([Admin, Customer]), makeCallback(putCart));
+
+  router.post(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.postCart)
+  );
+
+  router.put(
+    '/',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.putCart)
+  );
+
+  router.patch(
+    '/credit-card',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.patchCartCreditCard)
+  );
+
+  router.patch(
+    '/billing-address',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.patchCartBillingAddress)
+  );
+
+  router.patch(
+    '/shipping-method',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.patchCartShippingMethod)
+  );
+
+  router.patch(
+    '/payment-date',
+    authorize([Admin, Customer]),
+    makeCallback(cartControllers.patchCartPaymentDate)
+  );
+
   router.delete(
     '/:cartId',
     authorize([Admin, Customer]),
-    makeCallback(deleteCart)
+    makeCallback(cartControllers.deleteCart)
   );
+
   return router;
 }
 

@@ -20,8 +20,11 @@ export default function makeUpdateCart({ cartDb, paymentMethodDb }) {
     return cartDb.update({
       car_id: cart.getCartId(),
       email: cart.getEmail(),
+      card_number: cart.getCardNumber(),
       pay_id: cart.getPayId(),
-      quantity: cart.getQuantity(),
+      billing_addres_id: cart.getBillingAddress(),
+      shipping_method_id: cart.getShippingMethod(),
+      payment_date: cart.getPaymentDate(),
       enable: cart.getEnable(),
     });
   };
