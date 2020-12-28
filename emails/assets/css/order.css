@@ -1,0 +1,106 @@
+* {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #242424;
+}
+
+body {
+    background-color: #e8e8e8;
+}
+
+.containerContact {
+    background-color: #e0e0e0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.disclaimer {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+h1 {
+    letter-spacing: -0.2rem;
+    text-align: center;
+    margin: 3rem 0;
+}
+
+h3 {
+    text-align: center;
+    font-weight: 500;
+}
+
+h5 {
+    margin: 0.5rem 0;
+}
+
+small,
+h5 {
+    color: #888888;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.item:first-child {
+    border-top: 1px solid #aaaaaa;
+}
+
+.item {
+    height: 100px;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.item td:nth-child(2) {
+    text-transform: capitalize;
+}
+
+.calc tr {
+    height: 1.6rem;
+}
+
+.calc tr td:last-child {
+    font-weight: bold;
+}
+
+.calc tr:last-child td:last-child {
+    font-size: 1.6rem;
+}
+
+.item td:last-child,
+.calc tr td:last-child,
+.payment td:last-child {
+    text-align: right;
+}
+
+.header {
+    margin-bottom: 4rem;
+    display: block;
+    text-align: center;
+}
+
+.section {
+    margin: 3rem 0;
+}
+
+.wrapper {
+    padding: 2.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.ccType {
+    text-transform: capitalize;
+}

@@ -1,0 +1,70 @@
+doctype transitional
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(name='viewport', content='width=device-width')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    link(rel="stylesheet", href="/css/order.css", data-inline)
+    title Your Order
+  body
+    .wrapper
+      h1 BoConcept
+      h3 ORDER No. #{orderNumber}
+      small.header #{date}
+      .section
+        h5 ITEMS ORDERED
+        table
+          each item in products
+            tr.item
+              td image
+              td= item.name
+              td= `$${new Intl.NumberFormat().format(item.price)}`
+              td= `Qty: ${item.quantity}`
+        table.calc
+          tr
+            td Subtotal
+            td #{`$${new Intl.NumberFormat().format(subtotal)}`}
+          tr
+            td #{shippingMethod}
+            td #{`$${new Intl.NumberFormat().format(shippingCost)}`}
+          tr
+            td Total
+            td #{`$${new Intl.NumberFormat().format(subtotal + shippingCost)}`}
+      .section
+        h5 PAYMENT INFO
+        table
+          tr.payment
+            td #{ccImage}
+            td.ccType #{ccType}
+            td (#{ccNumber})
+      .section
+        h5 BILLING INFO
+        p #{firstName} #{lastName}
+        p #{address} - #{zipCode}
+        p #{city}
+        p 6654336
+      .section
+        h5 SHIPPING INFO
+        p Point of service: BoConcept Tottenham Court Road 158
+        p Shipping method: #{shippingMethod}
+        br
+        strong. 
+          At BoConcept we do not have all our products in stock, 
+          as most of our furniture is made just for you and your home. 
+          Our normal delivery time is 3-4 weeks for board furniture, 6-7 weeks 
+          for upholstery furniture. (All items in your order will be delivered 
+          simultaneously, unless other is stated.)
+        br
+        br
+        p.
+          We'll drop you another email when we send the products to your address 
+          with the tracking number.
+  .containerContact
+    .contact
+      h2 We are here to help you
+      p.
+        Please contact us in Denmark at +45 7013 138 or at boconceptmaja@gmail.com
+    .disclaimer
+      p.
+        Do not reply to this message, as it was sent from an automated mailbox. 
+        If you need more information or have any questions about your order, 
+        please contact us using the above information.

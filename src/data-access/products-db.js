@@ -1,7 +1,12 @@
+import { findImages } from '../utils/find-images';
+
 export default function makeProductDb({ makeDb }) {
   async function findProductImages(proId) {
     const db = await makeDb();
-    const queryStatement = `SELECT * FROM product_image WHERE pro_id = $1`;
+    const queryStatement = `SELECT 
+                            product_image_id, path 
+                            FROM product_image 
+                            WHERE pro_id = $1`;
     const result = (await db.query(queryStatement, [proId])).rows;
     return result;
   }
@@ -9,22 +14,35 @@ export default function makeProductDb({ makeDb }) {
   async function findAll() {
     const db = await makeDb();
     const queryStatement = 'SELECT * FROM product';
-    const result = (await db.query(queryStatement)).rows;
-    // result.map(async (item) => {
-    //   console.group('=>', item.name);
-    //   const images = await findProductImages(item.pro_id);
-    //   console.log(images);
-    //   console.groupEnd();
-    // });
+    let result = (await db.query(queryStatement)).rows;
+
+    result = await findImages(result, findProductImages);
+
     return result;
   }
 
-  async function findById(proId) {
+  async function findById(proId, isAlready = true) {
     const db = await makeDb();
     const queryStatement = `SELECT * FROM product WHERE pro_id = $1`;
     const result = (await db.query(queryStatement, [proId])).rows[0];
-    const images = await findProductImages(proId);
-    result.images = images;
+
+    if (isAlready) {
+      const images = await findProductImages(proId);
+      result.images = images;
+    }
+
+    return result;
+  }
+
+  async function findByCategory(catId) {
+    const db = await makeDb();
+    const queryStatement = `SELECT * 
+                            FROM product NATURAL JOIN pro_cat
+                            WHERE cat_id = $1`;
+    let result = (await db.query(queryStatement, [catId])).rows;
+
+    result = await findImages(result, findProductImages);
+
     return result;
   }
 
@@ -35,15 +53,6 @@ export default function makeProductDb({ makeDb }) {
                             WHERE name ILIKE '%' || $1 || '%'
                             OR description ILIKE '%' || $1 || '%'`;
     const result = (await db.query(queryStatement, [query])).rows;
-    return result;
-  }
-
-  async function findByCategory(catId) {
-    const db = await makeDb();
-    const queryStatement = `SELECT * 
-                            FROM product NATURAL JOIN pro_cat
-                            WHERE cat_id = $1`;
-    const result = (await db.query(queryStatement, [catId])).rows;
     return result;
   }
 

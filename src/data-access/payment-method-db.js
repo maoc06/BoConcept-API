@@ -16,8 +16,8 @@ export default function makePaymentMethodDb({ makeDb }) {
   async function insert({ ...paymentMethod }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
-                                payment_method(name, enable) 
-                                VALUES($1, $2) RETURNING *`;
+                                payment_method(name, enable, image_url) 
+                                VALUES($1, $2, $3) RETURNING *`;
     const result = await db.query(
       queryStatement,
       Object.values({ ...paymentMethod })
@@ -29,7 +29,8 @@ export default function makePaymentMethodDb({ makeDb }) {
     const db = await makeDb();
     const queryStatement = `UPDATE payment_method
                                 SET name = $2,
-                                    enable = $3
+                                    image_url = $3,
+                                    enable = $4
                                 WHERE pay_id = $1 
                                 RETURNING *`;
     const result = await db.query(

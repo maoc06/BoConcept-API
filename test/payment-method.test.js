@@ -86,6 +86,7 @@ describe('Payment Method', () => {
     it('it should POST a payment method', (done) => {
       const paymentMethod = {
         name: 'Test payment method',
+        image_url: 'image_url',
       };
       chai
         .request(url)
@@ -112,6 +113,7 @@ describe('Payment Method', () => {
       const paymentMethod = {
         pay_id: 9999,
         name: 'Test payment method updated',
+        image_url: 'image_url',
       };
       chai
         .request(url)
@@ -132,6 +134,7 @@ describe('Payment Method', () => {
     it('it should not UPDATE a payment method whitout Id field', (done) => {
       const paymentMethod = {
         name: 'Test payment method updated',
+        image_url: 'image_url',
       };
       chai
         .request(url)
@@ -153,6 +156,7 @@ describe('Payment Method', () => {
       const paymentMethod = {
         pay_id: lastPayId,
         name: 'Test payment method updated',
+        image_url: 'image_url',
       };
       chai
         .request(url)

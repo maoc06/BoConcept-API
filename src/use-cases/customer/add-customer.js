@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { makeCustomer } from '../../models';
 
-export default function makeAddCustomer({ customerDb }) {
+export default function makeAddCustomer({ customerDb, sendWelcomeMail }) {
   return async function addCustomer(customerInfo) {
     const existing = await customerDb.findById(customerInfo.email);
     if (existing) {
@@ -15,6 +15,10 @@ export default function makeAddCustomer({ customerDb }) {
     customerInfo.password = hashPassword;
 
     const customer = makeCustomer(customerInfo);
+    sendWelcomeMail({
+      emailToSend: customer.getEmail(),
+      fullName: `${customer.getFirstName()} ${customer.getLastName()}`,
+    });
 
     return customerDb.insert({
       first_name: customer.getFirstName(),

@@ -4,7 +4,7 @@ export default function makeUpdateProduct({ productsDb }) {
   return async function updateProduct(productInfo) {
     const product = makeProduct(productInfo);
 
-    const existing = await productsDb.findById(product.getId());
+    const existing = await productsDb.findById(product.getId(), false);
 
     if (!existing) {
       throw new RangeError('Product not found.');

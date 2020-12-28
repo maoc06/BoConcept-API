@@ -5,7 +5,7 @@ export default function makeAddProduct({ productsDb }) {
     const product = makeProduct(productInfo);
 
     // Verificar que el producto no exista
-    const existing = await productsDb.findById(product.getId());
+    const existing = await productsDb.findById(product.getId(), false);
     if (existing) {
       throw new Error('Product already exists.');
     }

@@ -4,7 +4,7 @@ export default function makeRemoveProduct({ productsDb }) {
       throw new Error('You must supply a product id');
     }
 
-    const existing = await productsDb.findById(proId);
+    const existing = await productsDb.findById(proId, false);
 
     if (!existing) {
       throw new RangeError('Product not found.');

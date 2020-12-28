@@ -1,4 +1,5 @@
 import Pool from 'pg';
+import { config } from '../../config';
 import makeProductDb from './products-db';
 import makeProductImageDb from './product-image-db';
 import makeCustomerDb from './customer-db';
@@ -7,9 +8,9 @@ import makePaymentMethodDb from './payment-method-db';
 import makeCreditCardDb from './credit-card-db';
 import makeShoppingProduct from './shopping-product-db';
 import makeShippingMethod from './shipping-method-db';
+import makeFavoriteDb from './favorite-db';
 import makeAddressDb from './address-db';
 import makeCart from './cart-db';
-import { config } from '../../config';
 
 const client = new Pool.Pool({
   user: config.dbUser,
@@ -32,6 +33,7 @@ const creditCardDb = makeCreditCardDb({ makeDb });
 const shoppingProductDb = makeShoppingProduct({ makeDb });
 const shippingMethodDb = makeShippingMethod({ makeDb });
 const addressDb = makeAddressDb({ makeDb });
+const favoriteDb = makeFavoriteDb({ makeDb });
 const cartDb = makeCart({ makeDb });
 
 export {
@@ -44,5 +46,6 @@ export {
   shoppingProductDb,
   shippingMethodDb,
   addressDb,
+  favoriteDb,
   cartDb,
 };

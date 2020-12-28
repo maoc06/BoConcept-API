@@ -8,6 +8,7 @@ export default function buildMakeCreditCard({}) {
     expiry_year,
     cvv,
     credit_card_owner,
+    pay_id,
   } = {}) {
     if (!cardholders_name) {
       throw new Error('Credit card must have a cardholder name');
@@ -27,6 +28,9 @@ export default function buildMakeCreditCard({}) {
     if (!credit_card_owner) {
       throw new Error('Credit card must have a owner');
     }
+    if (!pay_id) {
+      throw new Error('Credit card must have a pay id');
+    }
 
     return Object.freeze({
       getCardholderName: () => cardholders_name,
@@ -35,6 +39,7 @@ export default function buildMakeCreditCard({}) {
       getExpiryYear: () => expiry_year,
       getCvv: () => cvv,
       getCreditCardOwner: () => credit_card_owner,
+      getPayId: () => pay_id,
     });
   };
 }

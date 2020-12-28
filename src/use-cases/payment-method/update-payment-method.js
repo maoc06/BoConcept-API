@@ -13,6 +13,7 @@ export default function makeUpdatePaymentMethod({ paymentMethodDb }) {
     return paymentMethodDb.update({
       pay_id: paymentMethod.getPayId(),
       name: paymentMethod.getPayName(),
+      image_url: paymentMethod.getImageUrl(),
       enable: paymentMethod.getEnable(),
     });
   };

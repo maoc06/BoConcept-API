@@ -12,6 +12,8 @@ const config = {
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
   privateKey: process.env.PRIVATE_KEY,
+  mailUser: process.env.MAIL_USER,
+  mailPassword: process.env.MAIL_PASSWORD,
 };
 
 module.exports = { config };

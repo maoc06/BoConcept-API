@@ -62,7 +62,6 @@ describe('Cart', () => {
     it('it should POST a cart', (done) => {
       const cart = {
         email: getAdminUser().email,
-        pay_id: null,
         quantity: 0,
       };
       chai
@@ -164,7 +163,6 @@ describe('Cart', () => {
       const cart = {
         car_id: 888999,
         email: getAdminUser().email,
-        pay_id: null,
         quantity: 0,
       };
       chai
@@ -184,7 +182,6 @@ describe('Cart', () => {
     it('it should not UPDATE a cart whitout Id field', (done) => {
       const cart = {
         email: getAdminUser().email,
-        pay_id: null,
         quantity: 0,
       };
       chai
@@ -197,29 +194,6 @@ describe('Cart', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('error');
           res.body.should.have.property('error').eql('Cart not found.');
-          done();
-        });
-    });
-
-    it('it should not UPDATE a cart because payment not exists', (done) => {
-      const cart = {
-        car_id: lastCartId,
-        email: getAdminUser().email,
-        pay_id: 99999,
-        quantity: 0,
-      };
-      chai
-        .request(url)
-        .put('/cart')
-        .set({ Authorization: `Bearer ${token}` })
-        .send(cart)
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error');
-          res.body.should.have
-            .property('error')
-            .eql('Payment method not existing');
           done();
         });
     });

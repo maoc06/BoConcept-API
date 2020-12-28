@@ -18,6 +18,7 @@ export default function makeAddCreditCard({ creditCardDb }) {
       expiry_year: creditCard.getExpiryYear(),
       cvv: creditCard.getCvv(),
       credit_card_owner: creditCard.getCreditCardOwner(),
+      pay_id: creditCard.getPayId(),
     });
   };
 }

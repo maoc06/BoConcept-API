@@ -1,6 +1,6 @@
 import { makeCart } from '../../models';
 
-export default function makeUpdateCart({ cartDb, paymentMethodDb }) {
+export default function makeUpdateCart({ cartDb }) {
   return async function updateCart(cartInfo) {
     const cart = makeCart(cartInfo);
 
@@ -10,18 +10,17 @@ export default function makeUpdateCart({ cartDb, paymentMethodDb }) {
       throw new RangeError('Cart not found.');
     }
 
-    if (cart.getPayId() != null) {
-      const paymentExisting = await paymentMethodDb.findById(cart.getPayId());
-      if (!paymentExisting) {
-        throw new Error('Payment method not existing');
-      }
-    }
+    // if (cart.getPayId() != null) {
+    //   const paymentExisting = await paymentMethodDb.findById(cart.getPayId());
+    //   if (!paymentExisting) {
+    //     throw new Error('Payment method not existing');
+    //   }
+    // }
 
     return cartDb.update({
       car_id: cart.getCartId(),
       email: cart.getEmail(),
       card_number: cart.getCardNumber(),
-      pay_id: cart.getPayId(),
       billing_addres_id: cart.getBillingAddress(),
       shipping_method_id: cart.getShippingMethod(),
       payment_date: cart.getPaymentDate(),

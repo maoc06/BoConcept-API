@@ -8,6 +8,8 @@ import shoppingProductControllers from './shopping-product';
 import shippingMethodControllers from './shipping-method';
 import addressControllers from './address';
 import cartControllers from './cart';
+import favoriteControllers from './favorite';
+import orderControllers from './order';
 import notFound from './not-found';
 
 export {
@@ -20,6 +22,8 @@ export {
   shoppingProductControllers,
   shippingMethodControllers,
   addressControllers,
+  favoriteControllers,
   cartControllers,
+  orderControllers,
   notFound,
 };

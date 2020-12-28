@@ -12,7 +12,6 @@ import makeRemoveCart from './remove-cart';
 import {
   cartDb,
   customerDb,
-  paymentMethodDb,
   addressDb,
   shippingMethodDb,
   creditCardDb,
@@ -22,7 +21,7 @@ const listCart = makeListCart({ cartDb });
 const listCartByEmail = makeListCartByEmail({ cartDb, customerDb });
 const listCartEnable = makeListCartEnable({ cartDb, customerDb });
 const addCart = makeAddCart({ cartDb, customerDb });
-const updateCart = makeUpdateCart({ cartDb, paymentMethodDb });
+const updateCart = makeUpdateCart({ cartDb });
 const updateCartBillingAddress = makeUpdateCartBillingAddress({
   cartDb,
   addressDb,

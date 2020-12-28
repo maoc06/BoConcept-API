@@ -17,6 +17,7 @@ export default function makePostPaymentMethod({ addPaymentMethod }) {
         },
       };
     } catch (e) {
+      console.log('POST PAY', e);
       return {
         headers,
         statusCode: 400,

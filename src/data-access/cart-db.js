@@ -31,13 +31,12 @@ export default function makeCart({ makeDb }) {
     const db = await makeDb();
     const queryStatement = `INSERT INTO
                                 cart(email, 
-                                    pay_id, 
                                     card_number, 
                                     billing_address_id, 
                                     shipping_method_id, 
                                     payment_date, 
                                     enable) 
-                                VALUES($1, null, null, null, $2, null, $3) RETURNING *`;
+                                VALUES($1, null, null, $2, null, $3) RETURNING *`;
     const result = await db.query(queryStatement, Object.values({ ...cart }));
     return result.rows[0];
   }
@@ -47,11 +46,10 @@ export default function makeCart({ makeDb }) {
     const queryStatement = `UPDATE cart
                                 SET email = $2,
                                     card_number = $3,
-                                    pay_id = $4,
-                                    billing_address_id = $5,
-                                    shipping_method_id = $6,
-                                    payment_date = $7,
-                                    enable = $8
+                                    billing_address_id = $4,
+                                    shipping_method_id = $5,
+                                    payment_date = $6,
+                                    enable = $7
                                 WHERE car_id = $1 
                                 RETURNING *`;
     const result = await db.query(queryStatement, Object.values({ ...cart }));

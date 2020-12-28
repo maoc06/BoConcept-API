@@ -8,7 +8,9 @@ import { getCreditCardRoutes } from './credit-card';
 import { getShoppingProductRoutes } from './shopping-product';
 import { getShippingMethodRoutes } from './shipping-method';
 import { getAddressRoutes } from './address';
+import { getFavoriteRoutes } from './favorite';
 import { getCartRoutes } from './cart';
+import { getOrderRoutes } from './order';
 import { notFound } from '../controllers';
 import makeCallback from '../express-callback';
 import verifyToken from '../utils/middlewares/verifyToken';
@@ -24,7 +26,9 @@ function getRoutes() {
   router.use('/shopping-product', verifyToken, getShoppingProductRoutes());
   router.use('/shipping-method', verifyToken, getShippingMethodRoutes());
   router.use('/address', verifyToken, getAddressRoutes());
+  router.use('/favorite', verifyToken, getFavoriteRoutes());
   router.use('/cart', verifyToken, getCartRoutes());
+  router.use('/order', verifyToken, getOrderRoutes());
   router.use(makeCallback(notFound));
   return router;
 }

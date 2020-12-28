@@ -8,7 +8,9 @@ import buildMakeCreditCard from './credit-card';
 import buildMakeShoppingProduct from './shopping-product';
 import buildMakeShippingMethod from './shipping-method';
 import buildMakeAddress from './address';
+import buildMakeFavorite from './favorite';
 import buildMakeCart from './cart';
+import buildMakeOrder from './order';
 
 const makeProduct = buildMakeProduct({});
 const makeProductImage = buildMakeProductImage({});
@@ -20,7 +22,9 @@ const makeCreditCard = buildMakeCreditCard({});
 const makeShoppingProduct = buildMakeShoppingProduct({});
 const makeShippingMethod = buildMakeShippingMethod({});
 const makeAddress = buildMakeAddress({});
+const makeFavorite = buildMakeFavorite({});
 const makeCart = buildMakeCart({});
+const makeOrder = buildMakeOrder({});
 
 export {
   makeCustomer,
@@ -33,5 +37,7 @@ export {
   makeShoppingProduct,
   makeShippingMethod,
   makeAddress,
+  makeFavorite,
   makeCart,
+  makeOrder,
 };

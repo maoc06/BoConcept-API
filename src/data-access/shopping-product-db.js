@@ -1,4 +1,16 @@
+import { findImages } from '../utils/find-images';
+
 export default function makeShoppingProduct({ makeDb }) {
+  async function findProductImages(proId) {
+    const db = await makeDb();
+    const queryStatement = `SELECT 
+                            product_image_id, path 
+                            FROM product_image 
+                            WHERE pro_id = $1`;
+    const result = (await db.query(queryStatement, [proId])).rows;
+    return result;
+  }
+
   async function findAll() {
     const db = await makeDb();
     const queryStatement = 'SELECT * FROM shopping_product';
@@ -13,10 +25,28 @@ export default function makeShoppingProduct({ makeDb }) {
     return result;
   }
 
+  async function findByProductInCart({ ...shoppingProduct }) {
+    const db = await makeDb();
+    const queryStatement = `SELECT * 
+                            FROM shopping_product 
+                            WHERE car_id = $1
+                            AND pro_id = $2`;
+    const result = (
+      await db.query(queryStatement, Object.values({ ...shoppingProduct }))
+    ).rows[0];
+    return result;
+  }
+
   async function findByCarId(carId) {
     const db = await makeDb();
-    const queryStatement = `SELECT * FROM shopping_product WHERE car_id = $1`;
-    const result = (await db.query(queryStatement, [carId])).rows[0];
+    const queryStatement = `SELECT shpr_id, pro_id, name, price, quantity 
+                            FROM shopping_product NATURAL JOIN product
+                            WHERE car_id IN (
+                              SELECT car_id
+                              FROM cart
+                              WHERE car_id = $1
+                            )`;
+    const result = (await db.query(queryStatement, [carId])).rows;
     return result;
   }
 
@@ -30,7 +60,10 @@ export default function makeShoppingProduct({ makeDb }) {
                               WHERE email = $1
                               AND enable = 1
                             )`;
-    const result = (await db.query(queryStatement, [email])).rows;
+    let result = (await db.query(queryStatement, [email])).rows;
+
+    result = await findImages(result, findProductImages, false);
+
     return result;
   }
 
@@ -71,6 +104,7 @@ export default function makeShoppingProduct({ makeDb }) {
   return Object.freeze({
     findAll,
     findById,
+    findByProductInCart,
     findByCarId,
     findByEnableCarId,
     insert,

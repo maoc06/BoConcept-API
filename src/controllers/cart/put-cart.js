@@ -19,6 +19,7 @@ export default function makePutCart({ updateCart }) {
         },
       };
     } catch (e) {
+      console.log('Update cart', e);
       return {
         headers,
         statusCode: 400,

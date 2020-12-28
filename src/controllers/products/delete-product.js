@@ -1,16 +1,16 @@
-export default function makeDeleteProductImage({ removeProductImage }) {
-  return async function deleteProductImage(httpRequest) {
+export default function makeDeleteProduct({ removeProduct }) {
+  return async function deleteProduct(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
     try {
-      await removeProductImage({ productImageId: httpRequest.params.id });
+      await removeProduct({ proId: httpRequest.params.id });
       return {
         headers,
         statusCode: 200,
         body: {
-          message: 'Product image successfully deleted',
+          message: 'Product successfully deleted',
           data: {},
         },
       };
