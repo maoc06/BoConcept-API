@@ -10,6 +10,7 @@ import addressControllers from './address';
 import cartControllers from './cart';
 import favoriteControllers from './favorite';
 import orderControllers from './order';
+import storeControllers from './store';
 import notFound from './not-found';
 
 export {
@@ -25,5 +26,6 @@ export {
   favoriteControllers,
   cartControllers,
   orderControllers,
+  storeControllers,
   notFound,
 };

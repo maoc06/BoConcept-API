@@ -16,9 +16,8 @@ export default function makeCustomerDb({ makeDb }) {
                                   email, 
                                   rol_id, 
                                   password,
-                                  phone,
                                   enable)
-                                VALUES($1, $2, $3, $4, $5, $6, $7)
+                                VALUES($1, $2, $3, $4, $5, $6)
                                 RETURNING *`;
     const result = await db.query(
       queryStatement,
@@ -34,8 +33,7 @@ export default function makeCustomerDb({ makeDb }) {
                                     last_name = $2, 
                                     password = $4,
                                     rol_id = $5,
-                                    phone = $6,
-                                    enable = $7
+                                    enable = $6
                                 WHERE email = $3
                                 RETURNING *`;
     const result = await db.query(

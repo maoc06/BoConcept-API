@@ -7,6 +7,7 @@ import {
   shippingMethodDb,
   creditCardDb,
   shoppingProductDb,
+  storeDb,
 } from '../../data-access';
 import mail from '../../mails';
 
@@ -20,6 +21,7 @@ const processOrder = makeProcessOrder({
   addressDb,
   shippingMethodDb,
   shoppingProductDb,
+  storeDb,
   sendOrderMail,
   maskCardNumber,
 });

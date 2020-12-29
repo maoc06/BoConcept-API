@@ -26,7 +26,6 @@ export default function makeAddCustomer({ customerDb, sendWelcomeMail }) {
       email: customer.getEmail(),
       rol_id: customer.getRol(),
       password: customer.getPassword(),
-      phone: customer.getPhone(),
       enable: customer.getEnable(),
     });
   };

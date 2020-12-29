@@ -15,7 +15,8 @@ html(xmlns='http://www.w3.org/1999/xhtml')
         table
           each item in products
             tr.item
-              td image
+              td
+                img.product-image(src=item.image, alt="product image", srcset="")
               td= item.name
               td= `$${new Intl.NumberFormat().format(item.price)}`
               td= `Qty: ${item.quantity}`
@@ -33,18 +34,19 @@ html(xmlns='http://www.w3.org/1999/xhtml')
         h5 PAYMENT INFO
         table
           tr.payment
-            td #{ccImage}
+            td
+              img.payment-image(src=ccImage, alt=ccType, srcset="")
             td.ccType #{ccType}
             td (#{ccNumber})
       .section
         h5 BILLING INFO
         p #{firstName} #{lastName}
         p #{address} - #{zipCode}
-        p #{city}
-        p 6654336
+        p #{country}, #{city}
+        p #{phone}
       .section
         h5 SHIPPING INFO
-        p Point of service: BoConcept Tottenham Court Road 158
+        p Point of service: #{store}, #{storeDescription}. #{storeCity}, #{storeCountry}
         p Shipping method: #{shippingMethod}
         br
         strong. 

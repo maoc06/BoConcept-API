@@ -10,6 +10,7 @@ import addressUseCases from './address';
 import favoriteUseCases from './favorite';
 import cartUseCases from './cart';
 import orderUseCases from './order';
+import storeUseCases from './store';
 
 export {
   authUseCases,
@@ -24,4 +25,5 @@ export {
   favoriteUseCases,
   cartUseCases,
   orderUseCases,
+  storeUseCases,
 };

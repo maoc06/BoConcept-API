@@ -11,6 +11,7 @@ import { getAddressRoutes } from './address';
 import { getFavoriteRoutes } from './favorite';
 import { getCartRoutes } from './cart';
 import { getOrderRoutes } from './order';
+import { getStoreRoutes } from './store';
 import { notFound } from '../controllers';
 import makeCallback from '../express-callback';
 import verifyToken from '../utils/middlewares/verifyToken';
@@ -29,6 +30,7 @@ function getRoutes() {
   router.use('/favorite', verifyToken, getFavoriteRoutes());
   router.use('/cart', verifyToken, getCartRoutes());
   router.use('/order', verifyToken, getOrderRoutes());
+  router.use('/store', verifyToken, getStoreRoutes());
   router.use(makeCallback(notFound));
   return router;
 }

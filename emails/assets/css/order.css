@@ -104,3 +104,17 @@ table {
 .ccType {
     text-transform: capitalize;
 }
+
+.product-image {
+    max-height: 100px;
+}
+
+.payment-image {
+    max-height: 50px;
+}
+
+.payment-image,
+.product-image {
+    width: auto;
+    overflow: hidden;
+}

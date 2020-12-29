@@ -7,7 +7,6 @@ export default function buildMakeCustomer({}) {
     email,
     password,
     rol_id = 2,
-    phone,
     enable = 1,
   } = {}) {
     if (!first_name) {
@@ -31,7 +30,6 @@ export default function buildMakeCustomer({}) {
       getEmail: () => email,
       getRol: () => rol_id,
       getPassword: () => password,
-      getPhone: () => phone,
       getEnable: () => enable,
     });
   };

@@ -7,6 +7,7 @@ export default function makeProcessOrder({
   addressDb,
   shippingMethodDb,
   shoppingProductDb,
+  storeDb,
   maskCardNumber,
   sendOrderMail,
 }) {
@@ -25,7 +26,7 @@ export default function makeProcessOrder({
 
     const ccExisting = await creditCardDb.findById(order.getCardNumber());
     if (!ccExisting) {
-      throw new RangeError('Payment method not found.');
+      throw new RangeError('Credit card not found.');
     }
 
     const addressExisting = await addressDb.findById(order.getBillingAddress());
@@ -40,44 +41,60 @@ export default function makeProcessOrder({
       throw new RangeError('Shipping method not found.');
     }
 
+    const storeExisting = await storeDb.findById(order.getStoreId());
+    if (!storeExisting) {
+      throw new RangeError('Store not found.');
+    }
+
     // generate order
-    cartDb.update({
-      car_id: order.getCartId(),
-      email: order.getEmail(),
-      card_number: order.getCardNumber(),
-      billing_addres_id: order.getBillingAddress(),
-      shipping_method_id: order.getShippingMethod(),
-      payment_date: order.getPaymentDate(),
-      enable: order.getEnable(),
-    });
+    // cartDb.update({
+    //   car_id: order.getCartId(),
+    //   email: order.getEmail(),
+    //   card_number: order.getCardNumber(),
+    //   billing_addres_id: order.getBillingAddress(),
+    //   shipping_method_id: order.getShippingMethod(),
+    //   payment_date: order.getPaymentDate(),
+    //   enable: order.getEnable(),
+    // });
 
     const shoppingProducts = await shoppingProductDb.findByCarId(
       order.getCartId()
     );
 
-    sendOrderMail({
-      emailToSend: order.getEmail(),
-      firstName: customerExisting.first_name,
-      lastName: customerExisting.last_name,
-      orderNumber: order.getOrderNumber(),
-      date: order.getPaymentDate(),
-      products: shoppingProducts,
-      ccNumber: maskCardNumber(ccExisting.card_number),
-      ccType: ccExisting.name,
-      ccImage: ccExisting.image_url,
-      address: addressExisting.billing_address,
-      city: addressExisting.city,
-      zipCode: addressExisting.zip_code,
-      shippingMethod: shippingMethodExisting.name,
-      subtotal: order.getSubtotal(),
-      shippingCost: order.getShippingCost(),
-    });
+    sendOrderMail(
+      {
+        orderNumber: order.getOrderNumber(),
+        firstName: customerExisting.first_name,
+        lastName: customerExisting.last_name,
+        date: order.getPaymentDate(),
+        products: shoppingProducts,
+        ccNumber: maskCardNumber(ccExisting.card_number),
+        ccType: ccExisting.name,
+        ccImage: ccExisting.image_url,
+        address: addressExisting.billing_address,
+        country: addressExisting.country,
+        city: addressExisting.city,
+        zipCode: addressExisting.zip_code,
+        phone: addressExisting.phone,
+        shippingMethod: shippingMethodExisting.name,
+        store: storeExisting.title,
+        storeDescription: storeExisting.description,
+        storeCity: storeExisting.city,
+        storeCountry: storeExisting.country,
+        subtotal: order.getSubtotal(),
+        shippingCost: order.getShippingCost(),
+      },
+      order.getOrderNumber(),
+      order.getEmail()
+    );
+
+    return {};
 
     // generate new cart
-    return cartDb.insert({
-      email: order.getEmail(),
-      shipping_method_id: 1,
-      enable: 1,
-    });
+    // return cartDb.insert({
+    //   email: order.getEmail(),
+    //   shipping_method_id: 1,
+    //   enable: 1,
+    // });
   };
 }

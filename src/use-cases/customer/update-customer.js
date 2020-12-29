@@ -16,7 +16,6 @@ export default function makeUpdateCustomer({ customerDb }) {
       email: customer.getEmail(),
       password: customer.getPassword(),
       rol_id: customer.getRol(),
-      phone: customer.getPhone(),
       enable: customer.getEnable(),
     });
   };

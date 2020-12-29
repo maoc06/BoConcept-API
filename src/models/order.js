@@ -9,6 +9,7 @@ export default function buildMakeOrder({}) {
     pay_id,
     billing_addres_id,
     shipping_method_id,
+    store_id,
     subtotal,
     shipping_cost,
     payment_date,
@@ -39,7 +40,10 @@ export default function buildMakeOrder({}) {
       throw new Error('The order must have a payment date');
     }
     if (!shipping_method_id) {
-      throw new Error('The cart must have a shipping method');
+      throw new Error('The order must have a shipping method');
+    }
+    if (!store_id) {
+      throw new Error('The order must have a assigned store');
     }
 
     return Object.freeze({
@@ -52,6 +56,7 @@ export default function buildMakeOrder({}) {
       getShippingMethod: () => shipping_method_id,
       getSubtotal: () => subtotal,
       getShippingCost: () => shipping_cost,
+      getStoreId: () => store_id,
       getPaymentDate: () => payment_date,
       getEnable: () => enable,
     });

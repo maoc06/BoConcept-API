@@ -11,6 +11,7 @@ import buildMakeAddress from './address';
 import buildMakeFavorite from './favorite';
 import buildMakeCart from './cart';
 import buildMakeOrder from './order';
+import buildMakeStore from './store';
 
 const makeProduct = buildMakeProduct({});
 const makeProductImage = buildMakeProductImage({});
@@ -25,6 +26,7 @@ const makeAddress = buildMakeAddress({});
 const makeFavorite = buildMakeFavorite({});
 const makeCart = buildMakeCart({});
 const makeOrder = buildMakeOrder({});
+const makeStore = buildMakeStore({});
 
 export {
   makeCustomer,
@@ -40,4 +42,5 @@ export {
   makeFavorite,
   makeCart,
   makeOrder,
+  makeStore,
 };

@@ -11,6 +11,7 @@ import makeShippingMethod from './shipping-method-db';
 import makeFavoriteDb from './favorite-db';
 import makeAddressDb from './address-db';
 import makeCart from './cart-db';
+import makeStoreDb from './store-db';
 
 const client = new Pool.Pool({
   user: config.dbUser,
@@ -35,6 +36,7 @@ const shippingMethodDb = makeShippingMethod({ makeDb });
 const addressDb = makeAddressDb({ makeDb });
 const favoriteDb = makeFavoriteDb({ makeDb });
 const cartDb = makeCart({ makeDb });
+const storeDb = makeStoreDb({ makeDb });
 
 export {
   productsDb,
@@ -48,4 +50,5 @@ export {
   addressDb,
   favoriteDb,
   cartDb,
+  storeDb,
 };

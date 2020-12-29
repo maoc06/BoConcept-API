@@ -25,12 +25,14 @@ export default function makeAddressDb({ makeDb }) {
     const queryStatement = `INSERT INTO
                                 address(
                                   name, 
-                                  billing_address, 
+                                  billing_address,
+                                  country,
                                   city, 
-                                  zip_code, 
+                                  zip_code,
+                                  phone,
                                   customer_owner,
                                   is_default) 
-                                VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
+                                VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
     const result = await db.query(
       queryStatement,
       Object.values({ ...address })
@@ -43,10 +45,12 @@ export default function makeAddressDb({ makeDb }) {
     const queryStatement = `UPDATE address
                                 SET name = $2,
                                     billing_address = $3,
-                                    city = $4,
-                                    zip_code = $5,
-                                    customer_owner = $6,
-                                    is_default = $7
+                                    country = $4,
+                                    city = $5,
+                                    zip_code = $6,
+                                    phone = $7,
+                                    customer_owner = $8,
+                                    is_default = $9
                                 WHERE address_id = $1 
                                 RETURNING *`;
     const result = await db.query(

@@ -46,7 +46,11 @@ export default function makeShoppingProduct({ makeDb }) {
                               FROM cart
                               WHERE car_id = $1
                             )`;
-    const result = (await db.query(queryStatement, [carId])).rows;
+
+    let result = (await db.query(queryStatement, [carId])).rows;
+
+    result = await findImages(result, findProductImages, false);
+
     return result;
   }
 
