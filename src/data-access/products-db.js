@@ -52,7 +52,11 @@ export default function makeProductDb({ makeDb }) {
                             FROM product
                             WHERE name ILIKE '%' || $1 || '%'
                             OR description ILIKE '%' || $1 || '%'`;
-    const result = (await db.query(queryStatement, [query])).rows;
+
+    let result = (await db.query(queryStatement, [query])).rows;
+
+    result = await findImages(result, findProductImages);
+
     return result;
   }
 
