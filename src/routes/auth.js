@@ -9,7 +9,7 @@ function getAuthRoutes() {
        #swagger.path = '/auth/signup'
        #swagger.method = 'post'
        #swagger.produces = ["application/json"]
-       #swagger.description = 'Endpoint para registrar un customer'
+       #swagger.description = 'Endpoint para registrar un usuario'
        #swagger.parameters['newCustomer'] = {
                in: 'body',
                description: 'Información del customer.',
@@ -35,7 +35,7 @@ function getAuthRoutes() {
        #swagger.path = '/auth/signin'
        #swagger.method = 'post'
        #swagger.produces = ["application/json"]
-       #swagger.description = 'Endpoint para autenticar un customer'
+       #swagger.description = 'Endpoint para autenticar un usuario'
        #swagger.parameters['userCredentials'] = {
                in: 'body',
                description: 'Las crendenciales de autenticación.',

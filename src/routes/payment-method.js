@@ -13,9 +13,9 @@ function getPaymentMethodRoutes() {
        #swagger.method = 'get'
        #swagger.produces = ["application/json"]
        #swagger.description = 'Endpoint para obtener todas los metodos de pago.'
-       #swagger.tags = ['Payment Method']
+       #swagger.tags = ['PaymentMethod']
        #swagger.responses[200] = { 
-               schema: { $ref: "#/definitions/ListPayment" },
+               schema: { $ref: "#/definitions/PaymentMethod" },
                description: 'Listado de metodos de pagos.' 
         }
     */
@@ -33,7 +33,7 @@ function getPaymentMethodRoutes() {
        #swagger.produces = ["application/json"]
        #swagger.description = 'Endpoint para obtener un metodo de pago'
        #swagger.parameters['payId'] = { description: 'Id del metodo de pago.' }
-       #swagger.tags = ['Payment Method']
+       #swagger.tags = ['PaymentMethod']
        #swagger.responses[200] = { 
                schema: { $ref: "#/definitions/PaymentMethod" },
                description: 'Metodo de pago encontrada.' 
@@ -63,7 +63,7 @@ function getPaymentMethodRoutes() {
                type: 'object',
                schema: { name: "PSE" }
         }
-       #swagger.tags = ['Payment Method']
+       #swagger.tags = ['PaymentMethod']
        #swagger.responses[201] = { 
                schema: { $ref: "#/definitions/PaymentMethod" },
                description: 'Metodo de pago Guardado.' 
@@ -82,7 +82,7 @@ function getPaymentMethodRoutes() {
        #swagger.method = 'put'
        #swagger.produces = ["application/json"]
        #swagger.description = 'Endpoint para actualizar un metodo de pago'
-       #swagger.tags = ['Payment Method']
+       #swagger.tags = ['PaymentMethod']
        #swagger.parameters['paymentMethod'] = {
                in: 'body',
                description: 'Información del metodo de pago.',
@@ -113,7 +113,7 @@ function getPaymentMethodRoutes() {
        #swagger.produces = ["application/json"]
        #swagger.description = 'Endpoint para borrar una categoria'
        #swagger.parameters['payId'] = { description: 'Id del metodo de pago.' }
-       #swagger.tags = ['Payment Method']
+       #swagger.tags = ['PaymentMethod']
        #swagger.responses[200] = { 
                schema: { message: "Payment method successfully deleted" },
                description: 'Metodo de pago Borrado.' 
@@ -129,6 +129,7 @@ function getPaymentMethodRoutes() {
     makeCallback(paymentMethodControllers.deletePaymentMethod)
   );
   // #swagger.end
+
   return router;
 }
 

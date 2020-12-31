@@ -45,17 +45,45 @@ function getProductsRoutes() {
   );
   // #swagger.end
 
+  /*
+        #swagger.start
+       #swagger.path = '/product/by-cat/{categoryId}'
+       #swagger.method = 'get'
+       #swagger.produces = ["application/json"]
+       #swagger.description = 'Endpoint para obtener los productos de una categoria'
+       #swagger.parameters['categoryId'] = { description: 'Id de la categoria.' }
+       #swagger.tags = ['Product']
+       #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/Product" },
+               description: 'Lista de productos en la categoria.' 
+        }
+    */
   router.get(
     '/by-cat/:id',
     authorize([Admin, Customer]),
     makeCallback(productControllers.getProductsByCategory)
   );
+  // #swagger.end
 
+  /*
+        #swagger.start
+       #swagger.path = '/query/{query}'
+       #swagger.method = 'get'
+       #swagger.produces = ["application/json"]
+       #swagger.description = 'Endpoint para obtener los productos que coincidan con la busqueda'
+       #swagger.parameters['query'] = { description: 'cadena de texto a buscar.' }
+       #swagger.tags = ['Product']
+       #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/Product" },
+               description: 'Lista de productos en que coinciden con el parametro de busqueda.' 
+        }
+    */
   router.get(
     '/query/:query',
     authorize([Admin, Customer]),
     makeCallback(productControllers.getProductsByQuery)
   );
+  // #swagger.end
 
   router.get(
     '/image/:proId',

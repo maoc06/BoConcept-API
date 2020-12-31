@@ -47,15 +47,15 @@ export default function makeProcessOrder({
     }
 
     // generate order
-    // cartDb.update({
-    //   car_id: order.getCartId(),
-    //   email: order.getEmail(),
-    //   card_number: order.getCardNumber(),
-    //   billing_addres_id: order.getBillingAddress(),
-    //   shipping_method_id: order.getShippingMethod(),
-    //   payment_date: order.getPaymentDate(),
-    //   enable: order.getEnable(),
-    // });
+    cartDb.update({
+      car_id: order.getCartId(),
+      email: order.getEmail(),
+      card_number: order.getCardNumber(),
+      billing_addres_id: order.getBillingAddress(),
+      shipping_method_id: order.getShippingMethod(),
+      payment_date: order.getPaymentDate(),
+      enable: order.getEnable(),
+    });
 
     const shoppingProducts = await shoppingProductDb.findByCarId(
       order.getCartId()
@@ -88,13 +88,11 @@ export default function makeProcessOrder({
       order.getEmail()
     );
 
-    return {};
-
     // generate new cart
-    // return cartDb.insert({
-    //   email: order.getEmail(),
-    //   shipping_method_id: 1,
-    //   enable: 1,
-    // });
+    return cartDb.insert({
+      email: order.getEmail(),
+      shipping_method_id: 1,
+      enable: 1,
+    });
   };
 }
